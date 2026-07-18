@@ -1,7 +1,46 @@
 'use strict';
 var databaseKeyName = 'memotest_db';
 
+function generateDeckCards(themeName) {
+    var cardsArray = [];
+    var i;
+    var cardNumber;
+    var maxCardQuantity = 18;
+    var defaultImagesPath = 'assets/images/defaults/';
+
+    for (i = 1; i <= maxCardQuantity; i++) {
+        cardNumber = i.toString();
+        
+        cardsArray.push({
+            id: i,
+            img: defaultImagesPath + themeName + '/' + cardNumber + '.png',
+            name: themeName + ' ' + cardNumber
+        });
+    }
+
+    return cardsArray;
+}
+
 function getInitialStorageStructure() {
+    var defaultFolderNames = ['pokemon'];
+    var decksArray = [];
+    var i;
+    var folderName;
+    var formattedTitle;
+
+    for (i = 0; i < defaultFolderNames.length; i++) {
+        folderName = defaultFolderNames[i];
+        
+        formattedTitle = folderName.charAt(0).toUpperCase() + folderName.slice(1);
+
+        decksArray.push({
+            id: i + 1,
+            title: formattedTitle,
+            description: 'Mazo temático basado en ' + folderName,
+            cards: generateDeckCards(folderName)
+        });
+    }
+
     return {
         system: {
             theme: 'light',
@@ -58,20 +97,7 @@ function getInitialStorageStructure() {
                 }
             }
         ],
-        decks: [
-            {
-                id: 1,
-                title: 'Pokémon',
-                description: 'Cartas con personajes de Pokémon',
-                cards: []
-            },
-            {
-                id: 2,
-                title: 'Países',
-                description: 'Banderas de diferentes países',
-                cards: []
-            }
-        ],
+        decks: decksArray,
         games: []
     };
 }
