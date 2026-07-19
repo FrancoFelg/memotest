@@ -48,6 +48,7 @@ function getInitialStorageStructure() {
         },
         player: {
             username: '',
+            currentGame: null,
             games: []
         },
         difficulties: [
