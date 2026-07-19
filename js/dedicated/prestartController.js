@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     var activeGame = getCurrentGame();
     if (activeGame !== null) {
-        window.location.href = 'game.html';
+        redirectTo("game");
         return;
     }
 
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             saveCurrentGame(initialGameSetup);
-            window.location.href = 'game.html';
+            redirectTo("game");
         });
     }
 });

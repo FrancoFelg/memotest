@@ -1,3 +1,4 @@
 function redirectTo(page, folder = ""){
-    window.location.href = `${folder}/${page}.html`;
+    if(folder) folder += "/";
+    window.location.href = `${folder}${page}.html`;
 }

@@ -8,22 +8,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (btnPlay) {
         btnPlay.addEventListener('click', function() {
-            window.location.href = 'prestartGame.html';
+            redirectTo("prestartGame");
         });
     }
     if (btnRanking) {
         btnRanking.addEventListener('click', function() {
-            window.location.href = 'rankings.html';
+            redirectTo("rankings");
         });
     }
     if (btnConfiguration) {
         btnConfiguration.addEventListener('click', function() {
-            window.location.href = 'configurations.html';
+            redirectTo("configurations");
         });
     }
     if (btnContact) {
         btnContact.addEventListener('click', function() {
-            window.location.href = 'contact.html';
+            redirectTo("contact");
         });
     }
 });

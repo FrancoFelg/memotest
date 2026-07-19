@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var noActiveGame = activeGame === null;
 
     if (noActiveGame) {
-        window.location.href = 'prestartGame.html';
+        redirectTo("prestartGame")
         return;
     }
 
@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
             clearCurrentGame();
 
             // Desvío final a la pantalla de resultados
-            window.location.href = 'finalScreen.html';
+            redirectTo("finalScreen");
         }
     }
 

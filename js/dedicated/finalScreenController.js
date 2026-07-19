@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Guardia de seguridad: Si no hay registro de juego finalizado, lo mandamos al inicio
     if (lastGame === null) {
-        window.location.href = 'startMenu.html';
+        redirectTo("startMenu");
         return;
     }
 
@@ -57,21 +57,21 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Limpiamos el temporal de la pantalla final y vamos a jugar de nuevo
             localStorage.removeItem('last_finished_game');
-            window.location.href = 'game.html';
+            redirectTo("game");
         });
     }
 
     if (btnConfig) {
         btnConfig.addEventListener('click', function() {
             localStorage.removeItem('last_finished_game');
-            window.location.href = 'prestartGame.html';
+            redirectTo("prestartGame")
         });
     }
 
     if (btnMainMenu) {
         btnMainMenu.addEventListener('click', function() {
             localStorage.removeItem('last_finished_game');
-            window.location.href = 'startMenu.html';
+            redirectTo("startMenu")
         });
     }
 });

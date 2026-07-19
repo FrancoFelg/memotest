@@ -152,7 +152,3 @@ function setSoundsEnabled(enabled) {
     db.system.soundsEnabled = !!enabled;
     saveDatabase(db);
 }
-
-function navitageTo(viewName){
-    window.location = viewName;
-}
