@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/game.css">
+</head>
+<body>
+    <!--HEADER-->
+    <!--HEADER-->
+
+    <!--MAIN-->
+   <main class="main-body">
+    <h2>¡Juego terminado!</h2>
+        <p>Estadísticas finales:</p>
+        
+        <ul>
+            <li><strong>Tiempo:</strong> <span id="statTime">0</span> segundos</li>
+            <li><strong>Puntaje final:</strong> <span id="statScore">0</span> puntos</li>
+            <li><strong>Número de reintento:</strong> <span id="statAttempt">1</span></li>
+            <li><strong>Cantidad de aciertos:</strong> <span id="statMatches">0</span></li>
+            <li><strong>Cantidad de fallos:</strong> <span id="statFailures">0</span></li>
+        </ul>
+
+        <button type="button" id="btnRestart">Reiniciar partida</button>
+        <button type="button" id="btnConfig">Cambiar configuración</button>
+        <button type="button" id="btnMainMenu">Volver al menú principal</button>
+    </main>
+    <!--MAIN-->
+
+    <!--FOOTER-->
+    <!--FOOTER-->    
+    <script src="../js/storage.js"></script>
+    <script src="../js/game.js"></script>
+    <script src="../js/dedicated/finalScreenController.js"></script>
+</body>
+</html>

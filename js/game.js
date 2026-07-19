@@ -14,3 +14,11 @@ function clearCurrentGame() {
     db.player.currentGame = null;
     saveDatabase(db);
 }
+
+function saveGameResult(gameObj) {
+    var db = getDatabase();
+    gameObj.id = db.games.length + 1;
+    db.games.push(gameObj);
+    db.player.games.push(gameObj);
+    saveDatabase(db);
+}

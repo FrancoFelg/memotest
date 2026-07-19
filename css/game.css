@@ -1,0 +1,48 @@
+/* Contenedor principal del tablero */
+#tableBoard {
+    display: grid;
+    /* Toma dinámicamente el número de columnas enviado por JS (por defecto 4) */
+    grid-template-columns: repeat(var(--columns, 4), 1fr);
+    gap: 12px;
+    max-width: 650px;
+    margin: 20px auto;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+/* Aspecto mínimo rectangular para cada tarjeta */
+.tableCard {
+    aspect-ratio: 3 / 4;      /* Proporción rectangular vertical (tipo naipe) */
+    border: 2px solid #2c3e50;
+    border-radius: 6px;
+    background-color: #ecf0f1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+/* Efecto hover sutil al pasar por encima */
+.tableCard:hover {
+    background-color: #bdc3c7;
+    transform: scale(1.02);
+}
+
+/* Manejo visual interno de la imagen */
+.tableCard img {
+    max-width: 85%;
+    max-height: 85%;
+    object-fit: contain;
+    display: none; /* Oculta por defecto */
+}
+
+/* Cuando se añade la clase 'revealed', se visualiza la imagen */
+.tableCard.revealed {
+    background-color: #ffffff;
+}
+
+.tableCard.revealed img {
+    display: block;
+}
