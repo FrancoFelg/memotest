@@ -124,6 +124,12 @@ function getCurrentUsername() {
     return db.player.username;
 }
 
+function setCurrentUsername(username) {
+    var db = getDatabase();
+    db.player.username = username;
+    saveDatabase(db);
+}
+
 function getSystemTheme() {
     var db = getDatabase();
     return db.system.theme;
@@ -144,4 +150,8 @@ function setSoundsEnabled(enabled) {
     var db = getDatabase();
     db.system.soundsEnabled = !!enabled;
     saveDatabase(db);
+}
+
+function navitageTo(viewName){
+    window.location = viewName;
 }
