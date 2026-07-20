@@ -17,9 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var statAttempt = document.getElementById('statAttempt');
     var statMatches = document.getElementById('statMatches');
     var statFailures = document.getElementById('statFailures');
-
+    var timeObj = calculateTimeDifference(lastGame.startDatetime,lastGame.finalDatetime);
+    
     // Inyectar los datos reales acumulados
-    if (statTime) { statTime.textContent = lastGame.timeInSeconds; }
+    if (statTime) { statTime.textContent = timeObj.formattedTime; }
     if (statScore) { statScore.textContent = lastGame.score; }
     if (statAttempt) { statAttempt.textContent = lastGame.attempt; }
     if (statFailures) { statFailures.textContent = lastGame.failuresCount; }

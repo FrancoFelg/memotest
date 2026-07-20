@@ -85,6 +85,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     isMatched: false
                 });
             }
+
+            activeGame.startDatetime =  new Date();
             saveCurrentGame(activeGame);
         }
 
@@ -200,8 +202,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (allMatched) {
             // Guardar en el histórico de partidas finalizadas de storage.js
+            activeGame.finalDatetime = new Date();
             saveGameResult(activeGame);
-
             // Establecer bandera de lectura limpia para finalScreen y vaciar el juego activo
             localStorage.setItem('last_finished_game', JSON.stringify(activeGame));
             clearCurrentGame();
