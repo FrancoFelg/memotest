@@ -131,6 +131,17 @@ function setCurrentUsername(username) {
     saveDatabase(db);
 }
 
+function deleteUserSession(){
+    var db = getDatabase();
+    db.player = 
+    {
+        username: '',
+        currentGame: null,
+        games: []
+    };
+    saveDatabase(db);
+}
+
 function getSystemTheme() {
     var db = getDatabase();
     return db.system.theme;
