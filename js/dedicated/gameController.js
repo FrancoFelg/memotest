@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    // Variables de control del juego en memoria global del script (ES5)
+    // Variables de control del juego en memoria global del script
     var db = getDatabase();
     var currentDiff = null;
     var currentDeck = null;
