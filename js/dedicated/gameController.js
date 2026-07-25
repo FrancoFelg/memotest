@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
             checkEndGame();
         }
         //* Actualizar Temporizador
+        if(activeGame.score > 0) activeGame.score -= currentDiff.configurations.penalizationPerSecond;
 
         scoreElement.innerText = activeGame.score;
         errorsCount.innerText = activeGame.failuresCount;
@@ -165,6 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 activeGame.failuresCount += 1;
                 activeGame.actualStreak = 0;
                 activeGame.score -= currentDiff.configurations.pointsOnError;
+                
                 if (activeGame.score < 0) {
                     activeGame.score = 0;
                 }
