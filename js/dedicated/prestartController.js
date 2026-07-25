@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 attempt: 1,
                 isProgressiveMode: false,
                 failuresCount: 0,
+                actualStreak: 0,
                 playerName: getCurrentUsername(),
                 clicks: 0,
                 score: 0,
@@ -50,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 date: new Date().toISOString().slice(0, 10),
                 deckUsed: parseInt(selectedDeckId, 10),
                 difficulty: parseInt(selectedDiffId, 10),
-                boardMatrix: []
+                boardMatrix: [],
             };
 
             saveCurrentGame(initialGameSetup);

@@ -2,10 +2,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     var activeGame = getCurrentGame();
-    
-    var startWithNoTime = activeGame.remainingTime <= 0;
-    if(startWithNoTime) redirectTo("finalScreen");
-
     var noActiveGame = activeGame === null;
     var gameTimerInterval = null;
     var gameScore = 0;
@@ -21,7 +17,14 @@ document.addEventListener('DOMContentLoaded', function () {
     var deckNameText = document.getElementById('deckNameText');
     var deckName = "";
     var timerText = document.getElementById('timerText');
+    var errorsCount = document.getElementById('errorsCountText');
+    var streak = document.getElementById('streakText');
+    var retryCount = document.getElementById('retryCountText');
     var i = 0;
+
+    errorsCount.innerText = activeGame.failuresCount;
+    streak.innerText = activeGame.actualStreak;
+    retryCount.innerText = activeGame.attempt;
 
     //Settear el nombre de la baraja actual
     if (db && db.decks && activeGame.deckUsed) {
@@ -89,9 +92,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         //* Actualizar Temporizador
 
-        //* Actualizar Puntaje
         scoreElement.innerText = activeGame.score;
-        //* Actualizar Puntaje
+        errorsCount.innerText = activeGame.failuresCount;
+        streak.innerText = activeGame.actualStreak;
+        retryCount.innerText = activeGame.attempt;
     }
 
     function updateTimerDisplay(secondsTotal, element) {
@@ -146,8 +150,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Coincidencia exitosa
                 cardsFlipped[0].data.isMatched = true;
                 cardsFlipped[1].data.isMatched = true;
-
+                debugger
                 activeGame.score += currentDiff.configurations.pointsOnCorrect;
+                activeGame.score *= 1 + currentDiff.configurations.multiplierOnCombo * activeGame.actualStreak;
+                activeGame.actualStreak += 1;
 
                 cardsFlipped = [];
                 lockBoard = false;
@@ -157,6 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 // Caso Fallido: No coinciden
                 activeGame.failuresCount += 1;
+                activeGame.actualStreak = 0;
                 activeGame.score -= currentDiff.configurations.pointsOnError;
                 if (activeGame.score < 0) {
                     activeGame.score = 0;
@@ -278,7 +285,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        if (allMatched) {
+        var noTimeRemaining = activeGame.remainingTime <= 0;
+
+        if (allMatched || noTimeRemaining) {
             // Guardar en el histórico de partidas finalizadas de storage.js
             activeGame.finalDatetime = new Date();
             saveGameResult(activeGame);
