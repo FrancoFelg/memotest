@@ -7,6 +7,7 @@ loadComponent('gencomp-header', 'header');
 loadComponent('gencomp-footer', 'footer');
 
 function logout(){
+    clearCurrentGame();
     deleteUserSession();
     redirectTo("index", "..");
 }
