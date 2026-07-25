@@ -53,25 +53,27 @@ document.addEventListener('DOMContentLoaded', function () {
         activeGame.remainingTime = 300;
     }
 
+    var scoreElement = document.getElementById('scoreElement');
+
     // Iniciar el temporizador descendente
-    startCountdownTimer(activeGame, timerText);
+    startCountdownTimer(activeGame, timerText, scoreElement);
 
     // Sección TEMPORIZADOR
     if (typeof activeGame.remainingTime !== 'number') {
         activeGame.remainingTime = 300;
     }
 
-    function startCountdownTimer(activeGame, timerElement) {
+    function startCountdownTimer(activeGame, timerElement, scoreElement) {
         updateTimerDisplay(activeGame.remainingTime, timerElement);
         //Limpiar para evitar duplicaciones
         if (gameTimerInterval) clearInterval(gameTimerInterval);
 
         gameTimerInterval = setInterval(function () {
-            updateEachSecond(timerElement);
+            updateEachSecond(timerElement, scoreElement);
         }, 1000);
     }
 
-    function updateEachSecond(timerElement){
+    function updateEachSecond(timerElement, scoreElement){
         //* Actualizar Temporizador
         activeGame.remainingTime--;
         activeGame.timeInSeconds = (activeGame.timeInSeconds || 0) + 1; // Tiempo transcurrido acumulado
@@ -88,8 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //* Actualizar Temporizador
 
         //* Actualizar Puntaje
-        
-        scoreText.innerText = gameScore;
+        scoreElement.innerText = activeGame.score;
         //* Actualizar Puntaje
     }
 
@@ -179,8 +180,8 @@ document.addEventListener('DOMContentLoaded', function () {
     //Seccion PARTIDA
     function generateAndStartGame() {
         var tableBoard = document.getElementById('tableBoard');
-        var scoreText = document.getElementById('scoreText');
-        scoreText.innerText = gameScore;
+        var scoreElement = document.getElementById('scoreElement');
+        scoreElement.innerText = gameScore;
         var totalCards = currentDiff.configurations.amountOfCardsX * currentDiff.configurations.amountOfCardsY;
         var pairsNeeded = totalCards / 2;
         var availableCards = currentDeck.cards.slice(0);
