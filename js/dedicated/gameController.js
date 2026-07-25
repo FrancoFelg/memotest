@@ -2,8 +2,13 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     var activeGame = getCurrentGame();
+    
+    var startWithNoTime = activeGame.remainingTime <= 0;
+    if(startWithNoTime) redirectTo("finalScreen");
+
     var noActiveGame = activeGame === null;
     var gameTimerInterval = null;
+    var gameScore = 0;
 
     if (noActiveGame) {
         redirectTo("prestartGame")
@@ -62,22 +67,30 @@ document.addEventListener('DOMContentLoaded', function () {
         if (gameTimerInterval) clearInterval(gameTimerInterval);
 
         gameTimerInterval = setInterval(function () {
-            activeGame.remainingTime--;
-            activeGame.timeInSeconds = (activeGame.timeInSeconds || 0) + 1; // Tiempo transcurrido acumulado
-
-            // Guardar el estado del tiempo en LocalStorage por si refresca la página (F5)
-            saveCurrentGame(activeGame);
-
-            // Actualizar el DOM
-            updateTimerDisplay(activeGame.remainingTime, timerElement);
-
-            // Al llegar a cero, detener el reloj y finalizar partida
-            var noTimeRemaining = activeGame.remainingTime <= 0;
-            if (noTimeRemaining) {
-                clearInterval(gameTimerInterval);
-                checkEndGame();
-            }
+            updateEachSecond(timerElement);
         }, 1000);
+    }
+
+    function updateEachSecond(timerElement){
+        //* Actualizar Temporizador
+        activeGame.remainingTime--;
+        activeGame.timeInSeconds = (activeGame.timeInSeconds || 0) + 1; // Tiempo transcurrido acumulado
+
+        saveCurrentGame(activeGame);
+        updateTimerDisplay(activeGame.remainingTime, timerElement);
+
+        // Al llegar a cero, detener el reloj y finalizar partida
+        var noTimeRemaining = activeGame.remainingTime <= 0;
+        if (noTimeRemaining) {
+            clearInterval(gameTimerInterval);
+            checkEndGame();
+        }
+        //* Actualizar Temporizador
+
+        //* Actualizar Puntaje
+        
+        scoreText.innerText = gameScore;
+        //* Actualizar Puntaje
     }
 
     function updateTimerDisplay(secondsTotal, element) {
@@ -129,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (cardsFlipped[0].data.img === cardsFlipped[1].data.img) {
 
-                // ¡COINCIDENCIA EXITOSA! (El resto del código queda exactamente igual)
+                // Coincidencia exitosa
                 cardsFlipped[0].data.isMatched = true;
                 cardsFlipped[1].data.isMatched = true;
 
@@ -166,6 +179,8 @@ document.addEventListener('DOMContentLoaded', function () {
     //Seccion PARTIDA
     function generateAndStartGame() {
         var tableBoard = document.getElementById('tableBoard');
+        var scoreText = document.getElementById('scoreText');
+        scoreText.innerText = gameScore;
         var totalCards = currentDiff.configurations.amountOfCardsX * currentDiff.configurations.amountOfCardsY;
         var pairsNeeded = totalCards / 2;
         var availableCards = currentDeck.cards.slice(0);
@@ -289,8 +304,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         return deckName;
     }
-
-    
 
     // Arrancar el motor del juego
     generateAndStartGame();
