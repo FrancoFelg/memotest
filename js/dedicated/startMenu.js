@@ -27,10 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
             redirectTo("contact");
         });
     }
-    if (btnLogout) {
-        btnLogout.addEventListener('click', function () {
-            logout();
-        });
-    }
+    
 
 });

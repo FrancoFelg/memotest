@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     var activeGame = getCurrentGame();
     var noActiveGame = activeGame === null;
+    var gameTimerInterval = null;
 
     if (noActiveGame) {
         redirectTo("prestartGame")
@@ -11,6 +12,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Variables de control del juego en memoria global del script
     var db = getDatabase();
+
+    var deckNameText = document.getElementById('deckNameText');
+    var deckName = "";
+    var timerText = document.getElementById('timerText');
+    var i = 0;
+
+    //Settear el nombre de la baraja actual
+    if (db && db.decks && activeGame.deckUsed) {
+        deckName = getActualDeckName();
+        deckNameText.textContent = deckName;
+    }
+
     var currentDiff = null;
     var currentDeck = null;
     var cardsFlipped = []; // Arreglo de control de turnos (máximo 2 posiciones)
@@ -31,6 +44,53 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    if (typeof activeGame.remainingTime !== 'number') {
+        activeGame.remainingTime = 300;
+    }
+
+    // Iniciar el temporizador descendente
+    startCountdownTimer(activeGame, timerText);
+
+    // Sección TEMPORIZADOR
+    if (typeof activeGame.remainingTime !== 'number') {
+        activeGame.remainingTime = 300;
+    }
+
+    function startCountdownTimer(activeGame, timerElement) {
+        updateTimerDisplay(activeGame.remainingTime, timerElement);
+        //Limpiar para evitar duplicaciones
+        if (gameTimerInterval) clearInterval(gameTimerInterval);
+
+        gameTimerInterval = setInterval(function () {
+            activeGame.remainingTime--;
+            activeGame.timeInSeconds = (activeGame.timeInSeconds || 0) + 1; // Tiempo transcurrido acumulado
+
+            // Guardar el estado del tiempo en LocalStorage por si refresca la página (F5)
+            saveCurrentGame(activeGame);
+
+            // Actualizar el DOM
+            updateTimerDisplay(activeGame.remainingTime, timerElement);
+
+            // Al llegar a cero, detener el reloj y finalizar partida
+            var noTimeRemaining = activeGame.remainingTime <= 0;
+            if (noTimeRemaining) {
+                clearInterval(gameTimerInterval);
+                checkEndGame();
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay(secondsTotal, element) {
+        if (!element) return;
+        var minutes = Math.floor(secondsTotal / 60);
+        var seconds = secondsTotal % 60;
+        var formattedMinutes = minutes < 10 ? '0' + minutes : minutes.toString();
+        var formattedSeconds = seconds < 10 ? '0' + seconds : seconds.toString();
+        element.textContent = formattedMinutes + ':' + formattedSeconds;
+    }
+    // Sección TEMPORIZADOR
+
+    // Sección BARAJAS/SELECCIONAR CARTAS
     function shuffle(array) {
         var currentIndex = array.length;
         var temporaryValue;
@@ -44,93 +104,6 @@ document.addEventListener('DOMContentLoaded', function () {
             array[randomIndex] = temporaryValue;
         }
         return array;
-    }
-
-    function generateAndStartGame() {
-        var tableBoard = document.getElementById('tableBoard');
-        var totalCards = currentDiff.configurations.amountOfCardsX * currentDiff.configurations.amountOfCardsY;
-        var pairsNeeded = totalCards / 2;
-        var availableCards = currentDeck.cards.slice(0);
-        var selectedPairs;
-        var gamePool = [];
-        var idx;
-        var cardSlot;
-        var imgElement;
-        var allCards;
-
-        // Limpiar cualquier renderizado anterior
-        tableBoard.innerHTML = '';
-
-        // Seteamos dinámicamente la cantidad de columnas requeridas por la dificultad en el CSS
-        tableBoard.style.setProperty('--columns', currentDiff.configurations.amountOfCardsX);
-
-        // Si boardMatrix está vacío (partida nueva), generamos las parejas y mezclamos
-        if (!activeGame.boardMatrix || activeGame.boardMatrix.length === 0) {
-            availableCards = shuffle(availableCards);
-            selectedPairs = availableCards.slice(0, pairsNeeded);
-
-            for (idx = 0; idx < selectedPairs.length; idx++) {
-                gamePool.push(selectedPairs[idx]);
-                gamePool.push(selectedPairs[idx]);
-            }
-            gamePool = shuffle(gamePool);
-
-            activeGame.boardMatrix = [];
-            for (idx = 0; idx < gamePool.length; idx++) {
-                activeGame.boardMatrix.push({
-                    index: idx,
-                    cardId: gamePool[idx].id,
-                    img: gamePool[idx].img,
-                    name: gamePool[idx].name,
-                    isMatched: false
-                });
-            }
-
-            activeGame.startDatetime =  new Date();
-            saveCurrentGame(activeGame);
-        }
-
-        for (idx = 0; idx < activeGame.boardMatrix.length; idx++) {
-            cardSlot = document.createElement('div');
-            cardSlot.className = 'tableCard';
-            cardSlot.setAttribute('data-index', activeGame.boardMatrix[idx].index);
-
-            cardSlot.cardData = activeGame.boardMatrix[idx];
-
-            if (activeGame.boardMatrix[idx].isMatched) {
-                cardSlot.classList.add('revealed');
-            }
-
-            imgElement = document.createElement('img');
-            imgElement.src = '../' + activeGame.boardMatrix[idx].img;
-            imgElement.alt = activeGame.boardMatrix[idx].name;
-
-            cardSlot.appendChild(imgElement);
-
-            cardSlot.addEventListener('click', selectCard);
-            tableBoard.appendChild(cardSlot);
-        }
-
-        if (activeGame.clicks === 0) {
-            lockBoard = true;
-            allCards = document.querySelectorAll('.tableCard');
-
-            for (idx = 0; idx < allCards.length; idx++) {
-                allCards[idx].classList.add('revealed');
-            }
-
-            setTimeout(function () {
-                var innerIdx;
-                var cardIndex;
-                for (innerIdx = 0; innerIdx < allCards.length; innerIdx++) {
-                    cardIndex = parseInt(allCards[innerIdx].getAttribute('data-index'), 10);
-                    if (!activeGame.boardMatrix[cardIndex].isMatched) {
-                        allCards[innerIdx].classList.remove('revealed');
-                    }
-                }
-                lockBoard = false;
-            }, 5000);
-        }
     }
 
     function selectCard(event) {
@@ -188,6 +161,95 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
+    // Sección BARAJAS/SELECCIONAR CARTAS
+    
+    //Seccion PARTIDA
+    function generateAndStartGame() {
+        var tableBoard = document.getElementById('tableBoard');
+        var totalCards = currentDiff.configurations.amountOfCardsX * currentDiff.configurations.amountOfCardsY;
+        var pairsNeeded = totalCards / 2;
+        var availableCards = currentDeck.cards.slice(0);
+        var selectedPairs;
+        var gamePool = [];
+        var idx;
+        var cardSlot;
+        var imgElement;
+        var allCards;
+
+        // Limpiar cualquier renderizado anterior
+        tableBoard.innerHTML = '';
+
+        // Seteamos dinámicamente la cantidad de columnas requeridas por la dificultad en el CSS
+        tableBoard.style.setProperty('--columns', currentDiff.configurations.amountOfCardsX);
+
+        // Si boardMatrix está vacío (partida nueva), generamos las parejas y mezclamos
+        if (!activeGame.boardMatrix || activeGame.boardMatrix.length === 0) {
+            availableCards = shuffle(availableCards);
+            selectedPairs = availableCards.slice(0, pairsNeeded);
+
+            for (idx = 0; idx < selectedPairs.length; idx++) {
+                gamePool.push(selectedPairs[idx]);
+                gamePool.push(selectedPairs[idx]);
+            }
+            gamePool = shuffle(gamePool);
+
+            activeGame.boardMatrix = [];
+            for (idx = 0; idx < gamePool.length; idx++) {
+                activeGame.boardMatrix.push({
+                    index: idx,
+                    cardId: gamePool[idx].id,
+                    img: gamePool[idx].img,
+                    name: gamePool[idx].name,
+                    isMatched: false
+                });
+            }
+
+            activeGame.startDatetime = new Date();
+            saveCurrentGame(activeGame);
+        }
+
+        for (idx = 0; idx < activeGame.boardMatrix.length; idx++) {
+            cardSlot = document.createElement('div');
+            cardSlot.className = 'tableCard';
+            cardSlot.setAttribute('data-index', activeGame.boardMatrix[idx].index);
+
+            cardSlot.cardData = activeGame.boardMatrix[idx];
+
+            if (activeGame.boardMatrix[idx].isMatched) {
+                cardSlot.classList.add('revealed');
+            }
+
+            imgElement = document.createElement('img');
+            imgElement.src = '../' + activeGame.boardMatrix[idx].img;
+            imgElement.alt = activeGame.boardMatrix[idx].name;
+
+            cardSlot.appendChild(imgElement);
+
+            cardSlot.addEventListener('click', selectCard);
+            tableBoard.appendChild(cardSlot);
+        }
+
+        if (activeGame.clicks === 0) {
+            lockBoard = true;
+            allCards = document.querySelectorAll('.tableCard');
+
+            for (idx = 0; idx < allCards.length; idx++) {
+                allCards[idx].classList.add('revealed');
+            }
+
+            setTimeout(function () {
+                var innerIdx;
+                var cardIndex;
+                for (innerIdx = 0; innerIdx < allCards.length; innerIdx++) {
+                    cardIndex = parseInt(allCards[innerIdx].getAttribute('data-index'), 10);
+                    if (!activeGame.boardMatrix[cardIndex].isMatched) {
+                        allCards[innerIdx].classList.remove('revealed');
+                    }
+                }
+                lockBoard = false;
+            }, 5000);
+        }
+    }
 
     function checkEndGame() {
         var idx;
@@ -212,6 +274,23 @@ document.addEventListener('DOMContentLoaded', function () {
             redirectTo("finalScreen");
         }
     }
+    //Sección PARTIDA
+
+    function getActualDeckName() {
+        var db = getDatabase();
+        var activeGame = getCurrentGame();
+        //Del listado de barajas que tengo, busco el título de la que actualmente estoy usando
+        for (i = 0; i < db.decks.length; i++) {
+            if (db.decks[i].id === activeGame.deckUsed) {
+                deckName = db.decks[i].title;
+                break;
+            }
+        }
+
+        return deckName;
+    }
+
+    
 
     // Arrancar el motor del juego
     generateAndStartGame();
