@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 attempt: lastGame.attempt + 1, // Sumamos un intento al historial de reintentos
                 isProgressiveMode: lastGame.isProgressiveMode,
                 failuresCount: 0,
+                actualStreak: 0,
                 playerName: lastGame.playerName,
                 clicks: 0,
                 score: 0,
