@@ -2,7 +2,9 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     var activeGame = getCurrentGame();
+    console.log(activeGame)
     var noActiveGame = activeGame === null;
+    var isProgressiveMode = activeGame.isProgressiveMode;
     var gameTimerInterval = null;
     var gameScore = 0;
 
@@ -76,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 1000);
     }
 
-    function updateEachSecond(timerElement, scoreElement){
+    function updateEachSecond(timerElement, scoreElement) {
         //* Actualizar Temporizador
         activeGame.remainingTime--;
         activeGame.timeInSeconds = (activeGame.timeInSeconds || 0) + 1; // Tiempo transcurrido acumulado
@@ -91,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
             checkEndGame();
         }
         //* Actualizar Temporizador
-        if(activeGame.score > 0) activeGame.score -= currentDiff.configurations.penalizationPerSecond;
+        if (activeGame.score > 0) activeGame.score -= currentDiff.configurations.penalizationPerSecond;
 
         scoreElement.innerText = activeGame.score;
         errorsCount.innerText = activeGame.failuresCount;
@@ -151,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Coincidencia exitosa
                 cardsFlipped[0].data.isMatched = true;
                 cardsFlipped[1].data.isMatched = true;
-                debugger
+
                 activeGame.score += currentDiff.configurations.pointsOnCorrect;
                 activeGame.score *= 1 + currentDiff.configurations.multiplierOnCombo * activeGame.actualStreak;
                 activeGame.actualStreak += 1;
@@ -166,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 activeGame.failuresCount += 1;
                 activeGame.actualStreak = 0;
                 activeGame.score -= currentDiff.configurations.pointsOnError;
-                
+
                 if (activeGame.score < 0) {
                     activeGame.score = 0;
                 }
@@ -185,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
     // Sección BARAJAS/SELECCIONAR CARTAS
-    
+
     //Seccion PARTIDA
     function generateAndStartGame() {
         var tableBoard = document.getElementById('tableBoard');
@@ -254,31 +256,36 @@ document.addEventListener('DOMContentLoaded', function () {
             tableBoard.appendChild(cardSlot);
         }
 
-        if (activeGame.clicks === 0) {
-            lockBoard = true;
-            allCards = document.querySelectorAll('.tableCard');
+        //Muestra el tablero por unos segundos y luego da vuelta todas las cartas
+        lockBoard = true;
+        allCards = document.querySelectorAll('.tableCard');
 
-            for (idx = 0; idx < allCards.length; idx++) {
-                allCards[idx].classList.add('revealed');
-            }
-
-            setTimeout(function () {
-                var innerIdx;
-                var cardIndex;
-                for (innerIdx = 0; innerIdx < allCards.length; innerIdx++) {
-                    cardIndex = parseInt(allCards[innerIdx].getAttribute('data-index'), 10);
-                    if (!activeGame.boardMatrix[cardIndex].isMatched) {
-                        allCards[innerIdx].classList.remove('revealed');
-                    }
-                }
-                lockBoard = false;
-            }, 5000);
+        for (idx = 0; idx < allCards.length; idx++) {
+            allCards[idx].classList.add('revealed');
         }
+
+        setTimeout(function () {
+            var innerIdx;
+            var cardIndex;
+            for (innerIdx = 0; innerIdx < allCards.length; innerIdx++) {
+                cardIndex = parseInt(allCards[innerIdx].getAttribute('data-index'), 10);
+                if (!activeGame.boardMatrix[cardIndex].isMatched) {
+                    allCards[innerIdx].classList.remove('revealed');
+                }
+            }
+            lockBoard = false;
+        }, 5000);
     }
 
     function checkEndGame() {
         var idx;
         var allMatched = true;
+        var noTimeRemaining = false;
+        var deckUsed;
+        var difficultySelected;
+        var hardDifficulty = 3;
+        var nextDifficulty = difficultySelected;
+        var newGameSetup;
 
         for (idx = 0; idx < activeGame.boardMatrix.length; idx++) {
             if (activeGame.boardMatrix[idx].isMatched === false) {
@@ -287,17 +294,52 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        var noTimeRemaining = activeGame.remainingTime <= 0;
+        noTimeRemaining = activeGame.remainingTime <= 0;
 
         if (allMatched || noTimeRemaining) {
-            // Guardar en el histórico de partidas finalizadas de storage.js
+            // Detener el temporizador si existe
+            if (typeof gameTimerInterval !== 'undefined' && gameTimerInterval) {
+                clearInterval(gameTimerInterval);
+            }
+
+            deckUsed = activeGame.deckUsed;
+            difficultySelected = activeGame.difficulty;
+
+            // Si la partida es progresiva y no hemos llegado a la dificultad máxima
+            if (isProgressiveMode) {
+                activeGame.finalDatetime = new Date();
+                saveGameResult(activeGame);
+                nextDifficulty = difficultySelected;
+                console.log("Comparing: " + difficultySelected  + " - " +hardDifficulty)
+                if (difficultySelected != hardDifficulty) nextDifficulty = difficultySelected + 1;
+                
+                newGameSetup = {
+                    attempt: (activeGame.attempt || 1) + 1,
+                    isProgressiveMode: true,
+                    failuresCount: activeGame.failuresCount || 0,
+                    actualStreak: activeGame.actualStreak || 0,
+                    playerName: getCurrentUsername(),
+                    clicks: activeGame.clicks || 0,
+                    score: activeGame.score || 0,
+                    timeInSeconds: activeGame.timeInSeconds || 0,
+                    remainingTime: activeGame.remainingTime || 300, // o resetear tiempo si corresponde
+                    date: new Date().toISOString().slice(0, 10),
+                    deckUsed: deckUsed,
+                    difficulty: nextDifficulty,
+                    boardMatrix: []
+                };
+                saveCurrentGame(newGameSetup);
+                redirectTo("game");
+                return;
+            }
+
+            // Si terminó el modo normal o ya superó el nivel máximo progresivo:
             activeGame.finalDatetime = new Date();
             saveGameResult(activeGame);
-            // Establecer bandera de lectura limpia para finalScreen y vaciar el juego activo
             localStorage.setItem('last_finished_game', JSON.stringify(activeGame));
             clearCurrentGame();
 
-            // Desvío final a la pantalla de resultados
+            // Pantalla de resultados
             redirectTo("finalScreen");
         }
     }
