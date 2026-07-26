@@ -136,6 +136,8 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        SoundController.play('flip');
+
         activeGame.clicks += 1;
         clickedCardSlot.classList.add('revealed');
 
@@ -177,6 +179,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Mostrar el error por 1 segundo, luego ocultar las dos tarjetas erróneas
                 setTimeout(function () {
+
+                    SoundController.play('hide');
+
                     cardsFlipped[0].element.classList.remove('revealed');
                     cardsFlipped[1].element.classList.remove('revealed');
 
