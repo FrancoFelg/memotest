@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Coincidencia exitosa
                 cardsFlipped[0].data.isMatched = true;
                 cardsFlipped[1].data.isMatched = true;
-                debugger
+                
                 activeGame.score += currentDiff.configurations.pointsOnCorrect;
                 activeGame.score *= 1 + currentDiff.configurations.multiplierOnCombo * activeGame.actualStreak;
                 activeGame.actualStreak += 1;
