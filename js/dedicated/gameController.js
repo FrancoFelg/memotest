@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log(activeGame)
     var noActiveGame = activeGame === null;
     var isProgressiveMode = activeGame.isProgressiveMode;
-    var isInfiniteMode = activeGame.isInfiniteMode;
     var gameTimerInterval = null;
     var gameScore = 0;
 
