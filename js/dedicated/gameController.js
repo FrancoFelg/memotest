@@ -382,8 +382,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function endGame(){
-        setTimerToFiveSeconds();
-        return
         activeGame.finalDatetime = new Date();
         saveGameResult(activeGame);
         localStorage.setItem('last_finished_game', JSON.stringify(activeGame));
