@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var statAttempt = document.getElementById('statAttempt');
     var statMatches = document.getElementById('statMatches');
     var statFailures = document.getElementById('statFailures');
+    var gameResultTitle = document.getElementById('gameResultTitle');
     var timeObj = calculateTimeDifference(lastGame.startDatetime,lastGame.finalDatetime);
     
     // Inyectar los datos reales acumulados
@@ -24,6 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (statScore) { statScore.textContent = lastGame.score; }
     if (statAttempt) { statAttempt.textContent = lastGame.attempt; }
     if (statFailures) { statFailures.textContent = lastGame.failuresCount; }
+    if (gameResultTitle) { 
+        if(lastGame.isVictory == true) gameResultTitle.textContent = "¡Victoria!";
+        else gameResultTitle.textContent = "Derrota";
+     }
+    
     
     // Los aciertos corresponden a la cantidad total de cartas dividido 2
     if (statMatches && lastGame.boardMatrix) {
