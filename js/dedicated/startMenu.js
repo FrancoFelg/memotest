@@ -12,11 +12,11 @@ document.addEventListener('DOMContentLoaded', function () {
             redirectTo("prestartGame");
         });
     }
-    if (btnRanking) {
-        btnRanking.addEventListener('click', function () {
-            redirectTo("rankings");
-        });
-    }
+if (btnRanking) {
+    btnRanking.addEventListener('click', function () {
+        console.log("Hice click en el botón Ranking");
+    });
+}
     if (btnConfiguration) {
         btnConfiguration.addEventListener('click', function () {
             redirectTo("configurations");
