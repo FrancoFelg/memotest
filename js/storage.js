@@ -163,3 +163,15 @@ function setSoundsEnabled(enabled) {
     db.system.soundsEnabled = !!enabled;
     saveDatabase(db);
 }
+
+function getGameResults() {
+    var db = getDatabase();
+    return db.games;
+}
+
+function clearGameResults() {
+    var db = getDatabase();
+    db.games = [];
+    db.player.games = [];
+    saveDatabase(db);
+}
