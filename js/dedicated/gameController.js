@@ -22,6 +22,15 @@ document.addEventListener('DOMContentLoaded', function () {
     var errorsCount = document.getElementById('errorsCountText');
     var streak = document.getElementById('streakText');
     var retryCount = document.getElementById('retryCountText');
+    var btnEndgame = document.getElementById('endgameButton');
+
+    if (btnEndgame) {
+        btnEndgame.addEventListener('click', function() {
+            endGame();
+        })
+    };
+    
+
     var i = 0;
 
     errorsCount.innerText = activeGame.failuresCount;
@@ -366,6 +375,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         return deckName;
+    }
+
+    function endGame(){
+        activeGame.finalDatetime = new Date();
+        saveGameResult(activeGame);
+        localStorage.setItem('last_finished_game', JSON.stringify(activeGame));
+        clearCurrentGame();
+        redirectTo("finalScreen");
     }
 
     // Arrancar el motor del juego
