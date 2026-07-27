@@ -316,6 +316,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (allMatched || noTimeRemaining) {
             var isVictory = allMatched;
+            debugger
 
             // Detener el temporizador si existe
             if (typeof gameTimerInterval !== 'undefined' && gameTimerInterval) {
@@ -328,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function () {
             activeGame.finalDatetime = new Date();
             
             // Si la partida es progresiva y no hemos llegado a la dificultad máxima
-            if (isProgressiveMode) {
+            if (isProgressiveMode && isVictory) {
                 saveGameResult(activeGame);
                 nextDifficulty = difficultySelected;
                 console.log("Comparing: " + difficultySelected  + " - " +hardDifficulty)
@@ -382,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function endGame(){
         setTimerToFiveSeconds();
-        return;
+        return
         activeGame.finalDatetime = new Date();
         saveGameResult(activeGame);
         localStorage.setItem('last_finished_game', JSON.stringify(activeGame));
@@ -391,8 +392,8 @@ document.addEventListener('DOMContentLoaded', function () {
         
     }
 
+    //Método exclusivamente para testeo para verificar checkEndgame
     function setTimerToFiveSeconds() {
-        // 1. Obtener o usar el objeto de juego activo
         if (typeof activeGame === 'undefined' || !activeGame) {
             if (typeof getCurrentGame === 'function') {
                 activeGame = getCurrentGame();
@@ -404,21 +405,15 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // 2. Settear el tiempo restante a 5 segundos
         activeGame.remainingTime = 5;
-
-        // 3. Persistir el cambio en LocalStorage
         if (typeof saveCurrentGame === 'function') {
             saveCurrentGame(activeGame);
         }
 
-        // 4. Actualizar inmediatamente la interfaz si el elemento existe en el DOM
         var timerText = document.getElementById('timerText');
         if (timerText && typeof updateTimerDisplay === 'function') {
             updateTimerDisplay(activeGame.remainingTime, timerText);
         }
-
-        console.log('Temporizador ajustado: quedan 5 segundos.');
     }
 
     // Arrancar el motor del juego

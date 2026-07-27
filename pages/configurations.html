@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuraciones</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/game.css">
+</head>
+<body>
+    <!--HEADER-->
+    <div id="gencomp-header"></div>
+    <!--HEADER-->
+
+    <!--MAIN-->
+   <main class="main-body">
+        <section>
+            <span id="deckNameText">[NombreDeckElegida]</span>
+            <span id="timerText">[Temporizador]</span>
+            <span id="scoreElement">[Puntaje]</span>
+            <span id="errorsCountText">[CantidadErrores]</span>
+            <span id="streakText">[Combo]</span>
+            <span id="retryCountText">[Intento]</span>
+            <button id="endgameButton" type="button">Finalizar partida</button>
+        </section>
+        <section id="tableBoard">
+            <!-- El bucle se generará dinámicamente aquí más adelante -->
+             <div class="tableCard"></div>
+        </section>
+    </main>
+    <!--MAIN-->
+
+    <!--FOOTER-->
+    <div id="gencomp-footer"></div>
+    <!--FOOTER-->   
+    <script src="../js/navigation.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/game.js"></script>
+    <script src="../js/componentLoader.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/dedicated/soundController.js"></script>
+    <script src="../js/dedicated/gameController.js"></script>
+</body>
+</html>
