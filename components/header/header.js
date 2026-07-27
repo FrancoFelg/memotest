@@ -5,10 +5,26 @@ var navStats = document.getElementById("navStats");
 var rankingModal = document.getElementById("rankingModal");
 var btnCloseRanking = document.getElementById("btnCloseRanking");
 var rankingSort = document.getElementById("rankingSort");
+var btnTheme = document.getElementById("btnTheme");
+
 
 if (btnLogout) {
     btnLogout.addEventListener('click', function () {
         logout();
+    });
+}
+
+if (btnTheme) {
+    btnTheme.addEventListener("click", function () {
+
+        if (getSystemTheme() === "light") {
+            setSystemTheme("dark");
+        } else {
+            setSystemTheme("light");
+        }
+
+        applyTheme();
+        updateThemeButton();
     });
 }
 
@@ -32,6 +48,20 @@ if (rankingSort) {
     rankingSort.addEventListener("change", function () {
         loadRanking(this.value);
     });
+}
+
+function updateThemeButton() {
+
+    if (!btnTheme) {
+        return;
+    }
+
+    if (getSystemTheme() === "dark") {
+        btnTheme.innerHTML = "☀️";
+    } else {
+        btnTheme.innerHTML = "🌙";
+    }
+
 }
 
 function sortGames(games, criteria) {
@@ -90,3 +120,5 @@ function loadRanking(criteria) {
         tableBody.appendChild(row);
     }
 }
+
+updateThemeButton();
