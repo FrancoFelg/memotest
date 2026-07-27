@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var selectDeck = document.getElementById('selectDeck');
     var selectDiff = document.getElementById('selectDifficulty');
     var isProgressiveElement = document.getElementById('isProgressive');
-    var isProgressiveMode = isProgressiveElement.value == "on";
+    
+    
     var i;
     var option;
 
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         btnStart.addEventListener('click', function() {
             var selectedDeckId = selectDeck.value;
             var selectedDiffId = selectDiff.value;
+            var isProgressiveMode = isProgressiveElement.checked;
 
             // Creamos una estructura inicial vacía pero válida para currentGame
             var initialGameSetup = {

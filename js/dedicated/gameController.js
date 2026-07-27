@@ -315,6 +315,8 @@ document.addEventListener('DOMContentLoaded', function () {
         noTimeRemaining = activeGame.remainingTime <= 0;
 
         if (allMatched || noTimeRemaining) {
+            var isVictory = allMatched;
+
             // Detener el temporizador si existe
             if (typeof gameTimerInterval !== 'undefined' && gameTimerInterval) {
                 clearInterval(gameTimerInterval);
@@ -322,10 +324,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             deckUsed = activeGame.deckUsed;
             difficultySelected = activeGame.difficulty;
-
+            activeGame.isVictory = isVictory;
+            activeGame.finalDatetime = new Date();
+            
             // Si la partida es progresiva y no hemos llegado a la dificultad máxima
             if (isProgressiveMode) {
-                activeGame.finalDatetime = new Date();
                 saveGameResult(activeGame);
                 nextDifficulty = difficultySelected;
                 console.log("Comparing: " + difficultySelected  + " - " +hardDifficulty)
@@ -352,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             // Si terminó el modo normal o ya superó el nivel máximo progresivo:
-            activeGame.finalDatetime = new Date();
+            
             saveGameResult(activeGame);
             localStorage.setItem('last_finished_game', JSON.stringify(activeGame));
             clearCurrentGame();
@@ -378,11 +381,44 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function endGame(){
+        setTimerToFiveSeconds();
+        return;
         activeGame.finalDatetime = new Date();
         saveGameResult(activeGame);
         localStorage.setItem('last_finished_game', JSON.stringify(activeGame));
         clearCurrentGame();
         redirectTo("finalScreen");
+        
+    }
+
+    function setTimerToFiveSeconds() {
+        // 1. Obtener o usar el objeto de juego activo
+        if (typeof activeGame === 'undefined' || !activeGame) {
+            if (typeof getCurrentGame === 'function') {
+                activeGame = getCurrentGame();
+            }
+        }
+
+        if (!activeGame) {
+            console.warn('No hay partida activa para modificar el tiempo.');
+            return;
+        }
+
+        // 2. Settear el tiempo restante a 5 segundos
+        activeGame.remainingTime = 5;
+
+        // 3. Persistir el cambio en LocalStorage
+        if (typeof saveCurrentGame === 'function') {
+            saveCurrentGame(activeGame);
+        }
+
+        // 4. Actualizar inmediatamente la interfaz si el elemento existe en el DOM
+        var timerText = document.getElementById('timerText');
+        if (timerText && typeof updateTimerDisplay === 'function') {
+            updateTimerDisplay(activeGame.remainingTime, timerText);
+        }
+
+        console.log('Temporizador ajustado: quedan 5 segundos.');
     }
 
     // Arrancar el motor del juego
