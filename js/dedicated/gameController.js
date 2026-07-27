@@ -2,7 +2,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     var activeGame = getCurrentGame();
-    console.log(activeGame)
     var noActiveGame = activeGame === null;
     var isProgressiveMode = activeGame.isProgressiveMode;
     var gameTimerInterval = null;
@@ -316,7 +315,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (allMatched || noTimeRemaining) {
             var isVictory = allMatched;
-            debugger
 
             // Detener el temporizador si existe
             if (typeof gameTimerInterval !== 'undefined' && gameTimerInterval) {
@@ -328,11 +326,9 @@ document.addEventListener('DOMContentLoaded', function () {
             activeGame.isVictory = isVictory;
             activeGame.finalDatetime = new Date();
             
-            // Si la partida es progresiva y no hemos llegado a la dificultad máxima
             if (isProgressiveMode && isVictory) {
                 saveGameResult(activeGame);
                 nextDifficulty = difficultySelected;
-                console.log("Comparing: " + difficultySelected  + " - " +hardDifficulty)
                 if (difficultySelected != hardDifficulty) nextDifficulty = difficultySelected + 1;
                 
                 newGameSetup = {
@@ -356,7 +352,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             // Si terminó el modo normal o ya superó el nivel máximo progresivo:
-            
             saveGameResult(activeGame);
             localStorage.setItem('last_finished_game', JSON.stringify(activeGame));
             clearCurrentGame();
@@ -387,7 +382,6 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('last_finished_game', JSON.stringify(activeGame));
         clearCurrentGame();
         redirectTo("finalScreen");
-        
     }
 
     //Método exclusivamente para testeo para verificar checkEndgame
