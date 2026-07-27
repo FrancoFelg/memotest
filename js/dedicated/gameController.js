@@ -156,9 +156,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 cardsFlipped[0].data.isMatched = true;
                 cardsFlipped[1].data.isMatched = true;
                 
-                activeGame.score += currentDiff.configurations.pointsOnCorrect;
-                activeGame.score *= 1 + currentDiff.configurations.multiplierOnCombo * activeGame.actualStreak;
-                activeGame.actualStreak += 1;
+                activeGame.actualStreak = (activeGame.actualStreak || 0) + 1;
+
+                var pointsOnCorrect = currentDiff.configurations.pointsOnCorrect;
+                var multiplierOnCombo = currentDiff.configurations.multiplierOnCombo;
+                var currentStreak = activeGame.actualStreak;
+                var pointsGained = pointsOnCorrect + (pointsOnCorrect * (multiplierOnCombo * (currentStreak - 1)));
+                activeGame.score = (activeGame.score || 0) + pointsGained;
 
                 cardsFlipped = [];
                 lockBoard = false;
