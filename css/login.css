@@ -1,55 +1,79 @@
-#index {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* =========================
+   LOGIN
+========================= */
 
-    min-height: 80vh;
+#index {
+
+    flex: 1;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
 }
 
 .login-form-container {
-
-    width: 100%;
-    max-width: 420px;
-
-    padding: 40px;
-
-    background: white;
-
-    border-radius: 16px;
-
-    box-shadow: 0 8px 25px rgba(0,0,0,.15);
-
+    width: min(430px, 100%);
+    padding: 45px;
     display: flex;
     flex-direction: column;
     gap: 18px;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(8px);
+    border: 2px solid #FFCB05;
+    border-radius: 18px;
+    box-shadow: 0 18px 45px rgba(0,0,0,.18);
 }
 
 .login-form-container h1 {
 
-    margin: 0;
-
     text-align: center;
 
-    color: #2A75BB;
+    color: #050505;
 
     font-size: 2.4rem;
+
+    margin-bottom: 5px;
 }
 
 .login-form-container p {
 
-    margin: 0;
-
     text-align: center;
 
     color: #666;
+
+    margin-bottom: 10px;
+
+    line-height: 1.5;
 }
 
 .login-form-container label {
 
-    font-weight: bold;
+    color: #444;
 }
 
 #loginButton {
 
     margin-top: 10px;
+
+    width: 100%;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width:768px){
+
+    .login-form-container{
+
+        padding:30px 22px;
+    }
+
+    .login-form-container h1{
+
+        font-size:2rem;
+    }
+
 }

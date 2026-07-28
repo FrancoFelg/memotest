@@ -17,19 +17,40 @@
 ========================= */
 
 body {
-
+    margin: 0;
     font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-
     color: #2B2B2B;
-
-    background-color: #F6F6F6;
 
     min-height: 100vh;
 
     display: flex;
     flex-direction: column;
+
+    position: relative;
+    overflow-x: hidden;
 }
 
+body::before {
+
+    content: "";
+
+    position: fixed;
+    inset: -20px;
+
+    background:
+        linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75)),
+        url("../assets/images/defaults/pokemon/19.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: blur(14px);
+
+    transform: scale(1.08);
+
+    z-index: -1;
+}
 /* =========================
    CONTENEDOR PRINCIPAL
 ========================= */
