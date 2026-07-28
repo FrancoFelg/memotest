@@ -3,58 +3,49 @@
 ========================= */
 
 .main-footer {
+
     width: 100%;
 
-    margin-top: auto;
-    padding: 20px;
+    height: 60px;
 
-    background: linear-gradient(90deg, #FFCB05, #FFD84D);
+    display: flex;
 
-    border-top: 4px solid #2A75BB;
+    justify-content: center;
 
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, .15);
+    align-items: center;
 
-    text-align: center;
+    background-color: #F5C400;
+
+    border-top: 2px solid rgba(0,0,0,.08);
+
+    box-shadow: 0 -2px 8px rgba(0,0,0,.15);
 }
 
 .main-footer p {
+
     margin: 0;
 
-    color: #2A75BB;
+    color: #222;
 
-    font-size: 15px;
+    font-size: .95rem;
 
-    font-weight: bold;
+    font-weight: 600;
+
+    letter-spacing: .3px;
 }
 
 /* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 768px) {
-
-    .main-footer {
-        padding: 16px;
-    }
-
-    .main-footer p {
-        font-size: 14px;
-    }
-
-}
-
-/* =========================
-   DARK MODE
+   FOOTER - DARK THEME
 ========================= */
 
 body.dark-theme .main-footer {
 
-    background: #242424;
+    background-color: #1F2535;
 
-    border-top: 4px solid #FFCB05;
+    border-top: 2px solid rgba(255,255,255,.08);
 }
 
 body.dark-theme .main-footer p {
 
-    color: #FFCB05;
+    color: white;
 }

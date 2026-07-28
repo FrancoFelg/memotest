@@ -3,124 +3,106 @@
 ========================= */
 
 .main-header {
+
+    height: 65px;
+
+    padding: 0 30px;
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
-    padding: 16px 32px;
+    background-color: #F5C400;
 
-    background: linear-gradient(90deg, #FFCB05, #FFD84D);
-
-    border-bottom: 4px solid #2A75BB;
-
-    box-shadow: 0 3px 10px rgba(0,0,0,.15);
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
 }
 
 .logo h1 {
+
     margin: 0;
 
+    color: #1F2937;
+
     font-size: 2rem;
-    color: #2A75BB;
-    font-weight: bold;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
 }
 
 .nav-menu {
+
     display: flex;
+
     align-items: center;
+
     gap: 15px;
 }
 
-.nav-menu a {
-    color: #2A75BB;
-    text-decoration: none;
-    font-weight: bold;
-    transition: .2s;
-}
-
-.nav-menu a:hover {
-    color: #1B4F91;
-}
-
+.nav-menu a,
 .nav-menu button {
 
-    padding: 10px 16px;
+    height: 40px;
+
+    padding: 0 18px;
 
     border: none;
-    border-radius: 8px;
 
-    background-color: #2A75BB;
-    color: white;
+    border-radius: 10px;
+
+    background: rgb(253, 242, 190);
+
+    color: #333;
+
+    font-weight: 600;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-decoration: none;
 
     cursor: pointer;
 
     transition: .2s;
 }
 
+.nav-menu a:hover,
 .nav-menu button:hover {
 
-    background-color: #1B4F91;
-
     transform: translateY(-2px);
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.18);
 }
 
 /* =========================
-   RESPONSIVE
+   HEADER DARK
 ========================= */
 
-@media (max-width:768px){
+body.dark-theme .main-header {
 
-    .main-header{
-
-        flex-direction:column;
-
-        gap:15px;
-
-        padding:20px;
-    }
-
-    .nav-menu{
-
-        flex-wrap:wrap;
-
-        justify-content:center;
-    }
-
+    background: #2C2C2C;
 }
 
-/* =========================
-   DARK MODE
-========================= */
+body.dark-theme .logo h1 {
 
-body.dark-theme .main-header{
-
-    background:#242424;
-
-    border-bottom:4px solid #FFCB05;
+    color: white;
 }
 
-body.dark-theme .logo h1{
+body.dark-theme .nav-menu a {
 
-    color:#FFCB05;
+    background: #444;
+
+    color: white;
 }
 
-body.dark-theme .nav-menu a{
+body.dark-theme .nav-menu button {
 
-    color:#FFCB05;
-}
+    background: #444;
 
-body.dark-theme .nav-menu a:hover{
-
-    color:white;
-}
-
-body.dark-theme .nav-menu button{
-
-    background:#FFCB05;
-
-    color:#222;
-}
-
-body.dark-theme .nav-menu button:hover{
-
-    background:#E6B800;
+    color: white;
 }

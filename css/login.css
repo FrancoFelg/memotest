@@ -77,3 +77,17 @@
     }
 
 }
+
+body.dark-theme .login-form-container {
+
+    background: #1F2535;
+
+    border-color: #FFCB05;
+}
+
+body.dark-theme .login-form-container h1,
+body.dark-theme .login-form-container p,
+body.dark-theme .login-form-container label {
+
+    color: white;
+}
