@@ -35,10 +35,11 @@ body::before {
     content: "";
 
     position: fixed;
+
     inset: -20px;
 
     background:
-        linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75)),
+        linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
         url("../assets/images/defaults/pokemon/19.png");
 
     background-size: cover;
@@ -50,6 +51,21 @@ body::before {
     transform: scale(1.08);
 
     z-index: -1;
+}
+
+body.dark-theme::before {
+
+    background:
+        linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75)),
+        url("../assets/images/defaults/pokemon/19.png");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
+
+    filter: blur(16px);
 }
 /* =========================
    CONTENEDOR PRINCIPAL
@@ -218,32 +234,33 @@ th {
 
     padding: 25px;
 
-    background: white;
+    background: #e6e6e6;
 
     border-radius: 14px;
 
     box-shadow: 0 10px 30px rgba(0,0,0,.20);
 }
-
 /* =========================
    TEMA OSCURO
 ========================= */
 
 body.dark-theme {
 
-    background-color: #1F1F1F;
-
-    color: #EEEEEE;
+    color: #e6e6e6;
 }
 
 body.dark-theme .modal-content {
 
-    background: #2D2D2D;
+    background: #2B2B2B;
+
+    color: #e6e6e6;
 }
 
 body.dark-theme table {
 
-    background: #2D2D2D;
+    background: #2B2B2B;
+
+    color: #e6e6e6;
 }
 
 body.dark-theme th {
@@ -251,16 +268,32 @@ body.dark-theme th {
     background: #444;
 }
 
+body.dark-theme td {
+
+    border-color: #555;
+}
+
 body.dark-theme input,
 body.dark-theme select {
 
     background: #3A3A3A;
 
-    color: white;
+    color: #e6e6e6;
 
-    border-color: #555;
+    border-color: #FFD23F;
 }
 
+body.dark-theme button {
+
+    background: #FFD23F;
+
+    color: #222;
+}
+
+body.dark-theme label {
+
+    color: #e6e6e6;
+}
 /* =========================
    RESPONSIVE
 ========================= */
@@ -279,4 +312,14 @@ body.dark-theme select {
         padding:18px;
     }
 
+}
+
+body.dark-theme input,
+body.dark-theme select {
+
+    background: #2D3448;
+
+    color: white;
+
+    border-color: #FFCB05;
 }

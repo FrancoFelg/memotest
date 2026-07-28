@@ -1,55 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Memotest</title>
+
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/login.css">
 
+    <link rel="stylesheet" href="components/header/header.css">
+    <link rel="stylesheet" href="components/footer/footer.css">
 </head>
+
 <body>
-    <!-- MAIN ÚNICO -->
-<main class="main-body">
 
-    <section id="index">
+    <!-- HEADER -->
+    <div id="gencomp-header"></div>
 
-        <form id="loginForm" class="login-form-container">
+    <!-- MAIN -->
+    <main class="main-body">
 
-            <h1>MEMOTEST</h1>
+        <section id="index">
 
-            <p>
-                Poné tu nombre de entrenador para comenzar la aventura.
-            </p>
+            <form id="loginForm" class="login-form-container">
 
-            <label for="nombreUsuario">
-                Nombre de usuario
-            </label>
+                <h1>MEMOTEST</h1>
 
-            <input
-                type="text"
-                id="nombreUsuario"
-                placeholder="Ej: Ash Ketchum">
+                <p>
+                    Poné tu nombre de entrenador para comenzar la aventura.
+                </p>
 
-            <button
-                type="button"
-                id="loginButton">
+                <label for="nombreUsuario">
+                    Nombre de usuario
+                </label>
 
-                Iniciar sesión
+                <input
+                    type="text"
+                    id="nombreUsuario"
+                    placeholder="Ej: Ash Ketchum">
 
-            </button>
+                <button
+                    type="button"
+                    id="loginButton">
+                    Iniciar sesión
+                </button>
 
-        </form>
+            </form>
 
-    </section>
+        </section>
 
-</main>
+    </main>
+
+    <!-- FOOTER -->
+    <div id="gencomp-footer"></div>
 
     <script src="js/storage.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/validations.js"></script>
+    <script src="js/componentLoader.js"></script>
     <script src="js/login.js"></script>
     <script src="js/dedicated/startMenu.js"></script>
+
 </body>
+
 </html>

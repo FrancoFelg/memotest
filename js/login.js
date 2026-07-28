@@ -32,10 +32,56 @@ function mostrarErrorLogin(mensaje) {
     errorDiv.textContent = mensaje;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    var btnLogin = document.getElementById('loginButton');
-    
-    if (btnLogin) {
-        btnLogin.addEventListener('click', validarIngresoUsuario);
+function applyTheme() {
+
+    var theme = getSystemTheme();
+
+    document.body.classList.remove("light-theme");
+    document.body.classList.remove("dark-theme");
+
+    if (theme === "dark") {
+        document.body.classList.add("dark-theme");
+    } else {
+        document.body.classList.add("light-theme");
     }
+
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    loadComponent("gencomp-header", "header");
+    loadComponent("gencomp-footer", "footer");
+
+    applyTheme();
+
+    var btnLogin = document.getElementById("loginButton");
+
+    if (btnLogin) {
+        btnLogin.addEventListener("click", validarIngresoUsuario);
+    }
+
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    loadComponent("gencomp-header", "header");
+    loadComponent("gencomp-footer", "footer");
+
+    applyTheme();
+
+    var btnLogin = document.getElementById("loginButton");
+
+    if (btnLogin) {
+        btnLogin.addEventListener("click", validarIngresoUsuario);
+    }
+
+    setTimeout(function () {
+
+        document.getElementById("navHome")?.remove();
+        document.getElementById("btnLogout")?.remove();
+
+    }, 100);
+
 });
