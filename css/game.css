@@ -36,7 +36,8 @@
     max-width: 85%;
     max-height: 85%;
     object-fit: contain;
-    visibility: hidden; /* Oculta por defecto */
+    visibility: hidden;
+    /* Oculta por defecto */
 }
 
 /* Cuando se añade la clase 'revealed', se visualiza la imagen */
@@ -84,7 +85,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #1e293b; /* Fondo oscuro mate */
+    background: #1e293b;
+    /* Fondo oscuro mate */
     border-bottom: 3px solid #f5c400;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
@@ -105,7 +107,8 @@
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 1px;
-    color: #94a3b8; /* Gris sobrio */
+    color: #94a3b8;
+    /* Gris sobrio */
     text-transform: uppercase;
 }
 
@@ -123,7 +126,8 @@
 .deck-title {
     font-size: 1.05rem;
     font-weight: 700;
-    color: #f8fafc; /* Blanco limpio */
+    color: #f8fafc;
+    /* Blanco limpio */
 }
 
 .badge-item {
@@ -138,7 +142,8 @@
 .badge-value {
     font-size: 0.95rem;
     font-weight: 700;
-    color: #38bdf8; /* Azul mate */
+    color: #38bdf8;
+    /* Azul mate */
 }
 
 /* --- BLOQUE CENTRO (Tiempo y Puntaje) --- */
@@ -151,7 +156,8 @@
     gap: 24px;
 }
 
-.timer-card, .score-card {
+.timer-card,
+.score-card {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -161,14 +167,16 @@
 .digital-clock {
     font-size: 1.6rem;
     font-weight: 700;
-    color: #f8fafc; /* Blanco de alto contraste en vez de verde/cian neón */
+    color: #f8fafc;
+    /* Blanco de alto contraste en vez de verde/cian neón */
     letter-spacing: 1px;
 }
 
 .score-value {
     font-size: 1.4rem;
     font-weight: 700;
-    color: #cbd5e1; /* Gris claro */
+    color: #cbd5e1;
+    /* Gris claro */
 }
 
 /* --- BLOQUE DERECHO (Stats y Botón) --- */
@@ -184,20 +192,23 @@
 }
 
 .error-box .stat-value {
-    color: #f87171; /* Rojo suave mate */
+    color: #f87171;
+    /* Rojo suave mate */
     font-size: 1.15rem;
     font-weight: 700;
 }
 
 .streak-box .stat-value {
-    color: #f5c400; /* Amarillo/Dorado cálido mate */
+    color: #f5c400;
+    /* Amarillo/Dorado cálido mate */
     font-size: 1.15rem;
     font-weight: 700;
 }
 
 /* BOTÓN FINALIZAR PARTIDA */
 .btn-endgame {
-    background: #dc2626; /* Rojo sólido elegante */
+    background: #dc2626;
+    /* Rojo sólido elegante */
     color: #ffffff;
     border: none;
     padding: 10px 16px;
@@ -229,8 +240,81 @@
     }
 }
 
-.main-body{
+.main-body {
     width: 100%;
     margin: 0;
     padding: 0;
+}
+
+/* OVERLAY Y MODAL DE LEVEL UP */
+.level-up-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.85);
+    /* Fondo oscuro translúcido */
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.level-up-overlay.hidden {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.level-up-card {
+    background: #1e293b;
+    border: 2px solid #f5c400;
+    border-radius: 16px;
+    padding: 32px 40px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    max-width: 420px;
+    width: 90%;
+    color: #f8fafc;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.level-up-badge {
+    background: #f5c400;
+    color: #0f172a;
+    font-size: 0.75rem;
+    font-weight: 900;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.level-up-card h2 {
+    font-size: 1.8rem;
+    margin: 16px 0 8px 0;
+    color: #ffffff;
+}
+
+.level-up-card p {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
