@@ -85,7 +85,7 @@
 
 body.dark-theme .main-header {
 
-    background: #2C2C2C;
+    background-color: #1F2535;
 }
 
 body.dark-theme .logo h1 {
@@ -93,16 +93,10 @@ body.dark-theme .logo h1 {
     color: white;
 }
 
-body.dark-theme .nav-menu a {
-
-    background: #444;
-
-    color: white;
-}
-
+body.dark-theme .nav-menu a,
 body.dark-theme .nav-menu button {
 
-    background: #444;
+    background: #2D3448;
 
     color: white;
 }
