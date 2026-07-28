@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/game.css">
+    <link rel="stylesheet" href="../css/dedicated/prestartGame.css">
     <title>Document</title>
 </head>
+
 <body>
     <!--HEADER-->
     <div id="gencomp-header"></div>
@@ -14,18 +16,21 @@
 
     <!--MAIN-->
     <main class="main-body">
-        <label for="selectDeck">Seleccionar mazo</label>
-        <select id="selectDeck"></select>
+        <section class="main-menu">
+            <h2>Configurar Partida</h2>
+            <label for="selectDeck">Seleccionar mazo</label>
+            <select id="selectDeck"></select>
 
-        <label for="selectDifficulty">Seleccionar dificultad</label>
-        <select id="selectDifficulty"></select>
+            <label for="selectDifficulty">Seleccionar dificultad</label>
+            <select id="selectDifficulty"></select>
 
-<div class="progressive-mode">
-    <label for="isProgressive">Modo progresivo</label>
-    <input id="isProgressive" type="checkbox">
-</div>
+            <div class="progressive-mode">
+                <label for="isProgressive">Modo progresivo</label>
+                <input id="isProgressive" type="checkbox">
+            </div>
 
-        <button type="button" id="btnStartGame">Empezar partida</button>
+            <button type="button" id="btnStartGame">Empezar partida</button>
+        </section>
     </main>
     <!--MAIN-->
 
@@ -41,4 +46,5 @@
     <script src="../js/dedicated/soundController.js"></script>
     <script src="../js/dedicated/prestartController.js"></script>
 </body>
+
 </html>
