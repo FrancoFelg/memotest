@@ -9,7 +9,7 @@ loadComponent('gencomp-header', 'header');
 loadComponent('gencomp-footer', 'footer');
 
 function logout() {
-    clearCurrentGame();
+    if(getCurrentGame() != null || getCurrentGame() != undefined) clearCurrentGame();
     deleteUserSession();
     redirectTo("index", "..");
 }
