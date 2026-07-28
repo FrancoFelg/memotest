@@ -100,3 +100,18 @@ body.dark-theme .nav-menu button {
 
     color: white;
 }
+
+/* =========================
+   RANKING ACTIONS
+========================= */
+
+.ranking-actions {
+
+    margin-top: 25px;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+}

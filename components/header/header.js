@@ -7,7 +7,7 @@ var rankingModal = document.getElementById("rankingModal");
 var btnCloseRanking = document.getElementById("btnCloseRanking");
 var rankingSort = document.getElementById("rankingSort");
 var btnTheme = document.getElementById("btnTheme");
-
+var btnClearRanking = document.getElementById("btnClearRanking");
 
 if (btnLogout) {
     btnLogout.addEventListener('click', function () {
@@ -49,6 +49,17 @@ if (btnCloseRanking && rankingModal) {
     btnCloseRanking.addEventListener('click', function () {
         rankingModal.classList.add('hidden');
     });
+}
+
+if (btnClearRanking) {
+
+    btnClearRanking.addEventListener("click", function () {
+
+        clearGameResults();
+        loadRanking(rankingSort.value);
+
+    });
+
 }
 
 if (rankingSort) {
