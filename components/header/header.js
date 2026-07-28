@@ -8,6 +8,12 @@ var btnCloseRanking = document.getElementById("btnCloseRanking");
 var rankingSort = document.getElementById("rankingSort");
 var btnTheme = document.getElementById("btnTheme");
 var btnClearRanking = document.getElementById("btnClearRanking");
+var btnSound = document.getElementById("btnSound");
+
+var isInsidePagesFolder = window.location.pathname.indexOf("/pages/") !== -1;
+var pathPrefix = isInsidePagesFolder ? "../" : "./";
+var ICON_ENABLED = pathPrefix + "assets/images/icons/sound-enabled.png";
+var ICON_DISABLED = pathPrefix + "assets/images/icons/sound-disabled.png";
 
 if (btnLogout) {
     btnLogout.addEventListener('click', function () {
@@ -34,6 +40,14 @@ if (btnTheme) {
         updateThemeButton();
     });
 }
+
+if (btnSound) {
+    btnSound.addEventListener('click', function () {
+        toggleSound();
+    });
+}
+
+
 
 if (navStats && rankingModal) {
     navStats.addEventListener('click', function (e) {
@@ -69,7 +83,6 @@ if (rankingSort) {
 }
 
 function updateThemeButton() {
-
     if (!btnTheme) {
         return;
     }
@@ -79,7 +92,20 @@ function updateThemeButton() {
     } else {
         btnTheme.innerHTML = "🌙";
     }
+}
 
+function updateSoundButtonUI() {
+    var enabled = isSoundsEnabled();
+    var iconSrc = enabled ? ICON_ENABLED : ICON_DISABLED;
+    var altText = enabled ? "Sonido activado" : "Sonido desactivado";
+    btnSound.innerHTML = '<img src="' + iconSrc + '" alt="' + altText + '" class="sound-icon" />';
+    btnSound.setAttribute("aria-label", altText);
+}
+
+function toggleSound() {
+    var currentState = isSoundsEnabled();
+    setSoundsEnabled(!currentState);
+    updateSoundButtonUI();
 }
 
 function sortGames(games, criteria) {
@@ -139,4 +165,5 @@ function loadRanking(criteria) {
     }
 }
 
+updateSoundButtonUI();
 updateThemeButton();

@@ -115,3 +115,7 @@ body.dark-theme .nav-menu button {
 
     gap: 12px;
 }
+
+#btnSound img{
+    width: 12px;
+}
