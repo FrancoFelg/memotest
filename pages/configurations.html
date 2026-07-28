@@ -1,44 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuraciones</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/game.css">
+    <link rel="stylesheet" href="../css/dedicated/configurations.css">
 </head>
+
 <body>
     <!--HEADER-->
     <div id="gencomp-header"></div>
     <!--HEADER-->
 
     <!--MAIN-->
-   <main class="main-body">
-        <section>
-            <span id="deckNameText">[NombreDeckElegida]</span>
-            <span id="timerText">[Temporizador]</span>
-            <span id="scoreElement">[Puntaje]</span>
-            <span id="errorsCountText">[CantidadErrores]</span>
-            <span id="streakText">[Combo]</span>
-            <span id="retryCountText">[Intento]</span>
-            <button id="endgameButton" type="button">Finalizar partida</button>
-        </section>
-        <section id="tableBoard">
-            <!-- El bucle se generará dinámicamente aquí más adelante -->
-             <div class="tableCard"></div>
-        </section>
+    <main class="main-body">
+        <header class="decks-header">
+            <h2>Gestión de Barajas</h2>
+            <button type="button" id="btnOpenModal" class="btn btn-primary">+ Crear Baraja</button>
+        </header>
+        <section id="decksContainer" class="decks-container"></section>
     </main>
+    <div id="deckModal" class="modal-backdrop hidden">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h3>Crear Nueva Baraja</h3>
+                <button type="button" id="btnCloseModal" class="btn-close">&times;</button>
+            </header>
+
+            <form id="createDeckForm">
+                <div class="form-group">
+                    <label for="deckTitle">Título de la Baraja *</label>
+                    <input type="text" id="deckTitle" name="deckTitle" placeholder="Ej: Superhéroes" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="deckDescription">Descripción *</label>
+                    <textarea id="deckDescription" name="deckDescription" rows="3"
+                        placeholder="Descripción breve del mazo..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Imágenes de la Baraja (18 requeridas):</label>
+                    <div id="inputsGrid" class="inputs-grid">
+                        <!-- Se generan los 18 inputs dinámicamente o a mano -->
+                    </div>
+                </div>
+
+                <div id="formError" class="error-message hidden"></div>
+
+                <footer class="modal-footer">
+                    <button type="button" id="btnCancelModal" class="btn btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Baraja</button>
+                </footer>
+            </form>
+        </div>
+    </div>
     <!--MAIN-->
 
     <!--FOOTER-->
     <div id="gencomp-footer"></div>
-    <!--FOOTER-->   
+    <!--FOOTER-->
     <script src="../js/navigation.js"></script>
     <script src="../js/storage.js"></script>
     <script src="../js/game.js"></script>
     <script src="../js/componentLoader.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/dedicated/soundController.js"></script>
-    <script src="../js/dedicated/gameController.js"></script>
+    <script src="../js/dedicated/configurationsController.js"></script>
 </body>
+
 </html>

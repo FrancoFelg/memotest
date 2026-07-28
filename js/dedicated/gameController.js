@@ -24,11 +24,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var btnEndgame = document.getElementById('endgameButton');
 
     if (btnEndgame) {
-        btnEndgame.addEventListener('click', function() {
+        btnEndgame.addEventListener('click', function () {
             endGame();
         })
     };
-    
+
 
     var i = 0;
 
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Coincidencia exitosa
                 cardsFlipped[0].data.isMatched = true;
                 cardsFlipped[1].data.isMatched = true;
-                
+
                 activeGame.actualStreak = (activeGame.actualStreak || 0) + 1;
 
                 var pointsOnCorrect = currentDiff.configurations.pointsOnCorrect;
@@ -264,7 +264,16 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             imgElement = document.createElement('img');
-            imgElement.src = '../' + activeGame.boardMatrix[idx].img;
+            imgElement = document.createElement('img');
+
+            var rawImg = activeGame.boardMatrix[idx].img || '';
+            if (rawImg.indexOf('data:') === 0) {
+                imgElement.src = rawImg;
+            } else {
+                imgElement.src = '../' + rawImg;
+            }
+
+            imgElement.alt = activeGame.boardMatrix[idx].name;
             imgElement.alt = activeGame.boardMatrix[idx].name;
 
             cardSlot.appendChild(imgElement);
@@ -325,12 +334,12 @@ document.addEventListener('DOMContentLoaded', function () {
             difficultySelected = activeGame.difficulty;
             activeGame.isVictory = isVictory;
             activeGame.finalDatetime = new Date();
-            
+
             if (isProgressiveMode && isVictory) {
                 saveGameResult(activeGame);
                 nextDifficulty = difficultySelected;
                 if (difficultySelected != hardDifficulty) nextDifficulty = difficultySelected + 1;
-                
+
                 newGameSetup = {
                     attempt: (activeGame.attempt || 1) + 1,
                     isProgressiveMode: true,
@@ -376,7 +385,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return deckName;
     }
 
-    function endGame(){
+    function endGame() {
         activeGame.finalDatetime = new Date();
         saveGameResult(activeGame);
         localStorage.setItem('last_finished_game', JSON.stringify(activeGame));
