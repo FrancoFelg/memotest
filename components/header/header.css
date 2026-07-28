@@ -1,0 +1,126 @@
+/* =========================
+   HEADER
+========================= */
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 16px 32px;
+
+    background: linear-gradient(90deg, #FFCB05, #FFD84D);
+
+    border-bottom: 4px solid #2A75BB;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,.15);
+}
+
+.logo h1 {
+    margin: 0;
+
+    font-size: 2rem;
+    color: #2A75BB;
+    font-weight: bold;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-menu a {
+    color: #2A75BB;
+    text-decoration: none;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.nav-menu a:hover {
+    color: #1B4F91;
+}
+
+.nav-menu button {
+
+    padding: 10px 16px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: #2A75BB;
+    color: white;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.nav-menu button:hover {
+
+    background-color: #1B4F91;
+
+    transform: translateY(-2px);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width:768px){
+
+    .main-header{
+
+        flex-direction:column;
+
+        gap:15px;
+
+        padding:20px;
+    }
+
+    .nav-menu{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+    }
+
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark-theme .main-header{
+
+    background:#242424;
+
+    border-bottom:4px solid #FFCB05;
+}
+
+body.dark-theme .logo h1{
+
+    color:#FFCB05;
+}
+
+body.dark-theme .nav-menu a{
+
+    color:#FFCB05;
+}
+
+body.dark-theme .nav-menu a:hover{
+
+    color:white;
+}
+
+body.dark-theme .nav-menu button{
+
+    background:#FFCB05;
+
+    color:#222;
+}
+
+body.dark-theme .nav-menu button:hover{
+
+    background:#E6B800;
+}

@@ -1,0 +1,60 @@
+/* =========================
+   FOOTER
+========================= */
+
+.main-footer {
+    width: 100%;
+
+    margin-top: auto;
+    padding: 20px;
+
+    background: linear-gradient(90deg, #FFCB05, #FFD84D);
+
+    border-top: 4px solid #2A75BB;
+
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, .15);
+
+    text-align: center;
+}
+
+.main-footer p {
+    margin: 0;
+
+    color: #2A75BB;
+
+    font-size: 15px;
+
+    font-weight: bold;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .main-footer {
+        padding: 16px;
+    }
+
+    .main-footer p {
+        font-size: 14px;
+    }
+
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark-theme .main-footer {
+
+    background: #242424;
+
+    border-top: 4px solid #FFCB05;
+}
+
+body.dark-theme .main-footer p {
+
+    color: #FFCB05;
+}
