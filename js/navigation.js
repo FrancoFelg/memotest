@@ -7,5 +7,8 @@ function redirectTo(page, folder) {
         folder += "/";
     }
 
-    window.location.href = folder + page + ".html";
+    // Agrego delay para usar sonidos
+    setTimeout(function () {
+        window.location.href = folder + page + ".html";
+    }, 150);
 }
