@@ -75,12 +75,12 @@ function getInitialStorageStructure() {
                     id: 2,
                     amountOfCardsX: 4,
                     amountOfCardsY: 5,
-                    pointsOnCorrect: 100,
+                    pointsOnCorrect: 110,
                     pointsOnError: 20,
                     multiplierOnCombo: 0.15,
-                    bonusOnEnd: 300,
-                    penalizationPerSecond: 1.0,
-                    penalizationMultiplierOnError: 1.5
+                    bonusOnEnd: 600,
+                    penalizationPerSecond: 2.0,
+                    penalizationMultiplierOnError: 2.5
                 }
             },
             {
@@ -90,12 +90,12 @@ function getInitialStorageStructure() {
                     id: 3,
                     amountOfCardsX: 6,
                     amountOfCardsY: 6,
-                    pointsOnCorrect: 100,
+                    pointsOnCorrect: 120,
                     pointsOnError: 30,
                     multiplierOnCombo: 0.2,
-                    bonusOnEnd: 300,
-                    penalizationPerSecond: 1.0,
-                    penalizationMultiplierOnError: 1.5
+                    bonusOnEnd: 1000,
+                    penalizationPerSecond: 5.0,
+                    penalizationMultiplierOnError: 3.5
                 }
             }
         ],
