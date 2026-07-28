@@ -46,3 +46,27 @@
 .tableCard.revealed img {
     display: block;
 }
+
+/* =========================
+   PRESTART GAME
+========================= */
+
+.progressive-mode {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin: 10px 0 20px 0;
+}
+
+.progressive-mode label {
+    margin: 0;
+    font-weight: bold;
+}
+
+.progressive-mode input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+
+    cursor: pointer;
+}
