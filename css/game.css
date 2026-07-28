@@ -12,7 +12,8 @@
 
 /* Aspecto mínimo rectangular para cada tarjeta */
 .tableCard {
-    aspect-ratio: 3 / 4;      /* Proporción rectangular vertical (tipo naipe) */
+    width: 100%;
+    aspect-ratio: 3 / 4;
     border: 2px solid #2c3e50;
     border-radius: 6px;
     background-color: #ecf0f1;
@@ -35,7 +36,7 @@
     max-width: 85%;
     max-height: 85%;
     object-fit: contain;
-    display: none; /* Oculta por defecto */
+    visibility: hidden; /* Oculta por defecto */
 }
 
 /* Cuando se añade la clase 'revealed', se visualiza la imagen */
@@ -44,7 +45,7 @@
 }
 
 .tableCard.revealed img {
-    display: block;
+    visibility: visible;
 }
 
 /* =========================
