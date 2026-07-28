@@ -1,6 +1,7 @@
 'use strict';
 
 var btnLogout = document.getElementById("btnLogout");
+var btnHome = document.getElementById("navHome");
 var navStats = document.getElementById("navStats");
 var rankingModal = document.getElementById("rankingModal");
 var btnCloseRanking = document.getElementById("btnCloseRanking");
@@ -11,6 +12,12 @@ var btnTheme = document.getElementById("btnTheme");
 if (btnLogout) {
     btnLogout.addEventListener('click', function () {
         logout();
+    });
+}
+
+if (btnHome) {
+    btnHome.addEventListener('click', function () {
+        redirectTo("startMenu");
     });
 }
 
