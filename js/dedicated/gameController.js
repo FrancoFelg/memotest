@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //* Actualizar Temporizador
         if (activeGame.score > 0) activeGame.score -= currentDiff.configurations.penalizationPerSecond;
 
-        scoreElement.innerText = activeGame.score;
+        scoreElement.innerText = activeGame.score.toFixed(2);;
         errorsCount.innerText = activeGame.failuresCount;
         streak.innerText = activeGame.actualStreak;
         retryCount.innerText = activeGame.attempt;
@@ -170,7 +170,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 var multiplierOnCombo = currentDiff.configurations.multiplierOnCombo;
                 var currentStreak = activeGame.actualStreak;
                 var pointsGained = pointsOnCorrect + (pointsOnCorrect * (multiplierOnCombo * (currentStreak - 1)));
-                activeGame.score = (activeGame.score || 0) + pointsGained;
+                var rawScore = (activeGame.score || 0) + pointsGained;
+                activeGame.score = parseFloat(rawScore.toFixed(2));
 
                 cardsFlipped = [];
                 lockBoard = false;
