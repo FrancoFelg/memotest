@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function generateAndStartGame() {
         var tableBoard = document.getElementById("tableBoard");
         if (scoreElement) scoreElement.innerText = (activeGame.score || 0).toFixed(2);
-        
+
         // Sincronizar configuracion por si se subió la dificultad en modo progresivo
         syncDatabaseConfig();
 
@@ -313,38 +313,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 nextDifficulty = difficultySelected + 1;
 
-                // 1. Crear nuevo objeto heredando estadísticas acumuladas
-                newGameSetup = {
-                    attempt: (activeGame.attempt || 1) + 1,
-                    isProgressiveMode: true,
-                    failuresCount: activeGame.failuresCount || 0,
-                    actualStreak: activeGame.actualStreak || 0,
-                    playerName: getCurrentUsername(),
-                    clicks: activeGame.clicks || 0,
-                    score: activeGame.score || 0,
-                    timeInSeconds: activeGame.timeInSeconds || 0,
-                    remainingTime: 300, // Reiniciamos el tiempo para el nuevo nivel (o el tiempo que prefieras)
-                    date: new Date().toISOString().slice(0, 10),
-                    deckUsed: deckUsed,
-                    difficulty: nextDifficulty,
-                    boardMatrix: [] // Forzamos vaciar el tablero anterior para generar uno nuevo
-                };
+                // Buscar los datos de la nueva dificultad en la BBDD para mostrárselos al usuario
+                var nextDiffObj = null;
+                for (var d = 0; d < db.difficulties.length; d++) {
+                    if (db.difficulties[d].id === nextDifficulty) {
+                        nextDiffObj = db.difficulties[d];
+                        break;
+                    }
+                }
 
-                // 2. Sobrescribir activeGame con la nueva configuración
-                activeGame = newGameSetup;
-                saveCurrentGame(activeGame);
+                // Mostrar la notificación/pestaña antes de re-generar el tablero
+                showLevelUpNotification(nextDiffObj, function () {
+                    // Este callback se ejecuta cuando pasan los 3.5 segundos de la notificación
 
-                // 3. Resetear arreglos/banderas del estado de juego
-                cardsFlipped = [];
-                lockBoard = false;
+                    newGameSetup = {
+                        attempt: (activeGame.attempt || 1) + 1,
+                        isProgressiveMode: true,
+                        failuresCount: activeGame.failuresCount || 0,
+                        actualStreak: activeGame.actualStreak || 0,
+                        playerName: getCurrentUsername(),
+                        clicks: activeGame.clicks || 0,
+                        score: activeGame.score || 0,
+                        timeInSeconds: activeGame.timeInSeconds || 0,
+                        remainingTime: 300,
+                        date: new Date().toISOString().slice(0, 10),
+                        deckUsed: deckUsed,
+                        difficulty: nextDifficulty,
+                        boardMatrix: []
+                    };
 
-                // 4. Sincronizar BBDD y regenerar UI de pantalla
-                syncDatabaseConfig();
-                if (retryCount) retryCount.innerText = activeGame.attempt;
-                
-                // 5. Iniciar nuevo tablero y temporizador sin recargar
-                generateAndStartGame();
-                startCountdownTimer(activeGame, timerText, scoreElement);
+                    activeGame = newGameSetup;
+                    saveCurrentGame(activeGame);
+
+                    cardsFlipped = [];
+                    lockBoard = false;
+
+                    syncDatabaseConfig();
+                    if (retryCount) retryCount.innerText = activeGame.attempt;
+
+                    generateAndStartGame();
+                    startCountdownTimer(activeGame, timerText, scoreElement);
+                });
+
                 return;
             }
 
@@ -367,6 +377,42 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
         return deckName;
+    }
+
+    // Función para mostrar la alerta de "Siguiente Nivel"
+    function showLevelUpNotification(nextDiffObj, callback) {
+        var overlay = document.getElementById("levelUpOverlay");
+        var title = document.getElementById("levelUpTitle");
+        var desc = document.getElementById("levelUpDesc");
+
+        if (!overlay || !title || !desc) {
+            // Si no existen los elementos en el HTML, continúa el flujo sin pausar
+            if (callback) callback();
+            return;
+        }
+
+        // Configurar textos según la nueva dificultad
+        title.innerText = "¡Siguiente Nivel: " + (nextDiffObj.title || "Nivel Superior") + "!";
+
+        var cardsX = nextDiffObj.configurations.amountOfCardsX;
+        var cardsY = nextDiffObj.configurations.amountOfCardsY;
+        var totalCards = cardsX * cardsY;
+
+        desc.innerText = "Preparando tablero de " + totalCards + " cartas (" + cardsX + "x" + cardsY + "). ¡Buena suerte!";
+
+        // Mostrar el modal
+        overlay.classList.remove("hidden");
+
+        // Reproducir un sonido si tienes SoundController configurado
+        if (typeof SoundController !== "undefined") {
+            SoundController.play("victory"); // O el sonido que utilices
+        }
+
+        // Ocultar modal después de 3.5 segundos y ejecutar la preparación del juego
+        setTimeout(function () {
+            overlay.classList.add("hidden");
+            if (callback) callback();
+        }, 3500);
     }
 
     function endGame() {
