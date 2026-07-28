@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,32 +8,63 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/game.css">
 </head>
+
 <body>
     <!--HEADER-->
     <div id="gencomp-header"></div>
     <!--HEADER-->
 
     <!--MAIN-->
-   <main class="main-body">
-        <section>
-            <span id="deckNameText">[NombreDeckElegida]</span>
-            <span id="timerText">[Temporizador]</span>
-            <span id="scoreElement">[Puntaje]</span>
-            <span id="errorsCountText">[CantidadErrores]</span>
-            <span id="streakText">[Combo]</span>
-            <span id="retryCountText">[Intento]</span>
-            <button id="endgameButton" type="button">Finalizar partida</button>
+    <main class="main-body">
+        <section class="game-hud">
+            <div class="hud-group hud-left">
+                <div class="deck-card">
+                    <span class="hud-label">MAZO</span>
+                    <span id="deckNameText" class="deck-title">Pokémon</span>
+                </div>
+                <div class="hud-sub-info">
+                    <div class="badge-item">
+                        <span class="badge-label">INTENTO</span>
+                        <span id="retryCountText" class="badge-value">#1</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hud-group hud-center">
+                <div class="timer-card">
+                    <span class="hud-label">TIEMPO</span>
+                    <div id="timerText" class="digital-clock">02:45</div>
+                </div>
+                <div class="score-card">
+                    <span class="hud-label">PUNTAJE</span>
+                    <span id="scoreElement" class="score-value">02,450</span>
+                </div>
+            </div>
+
+            <div class="hud-group hud-right">
+                <div class="stat-box error-box">
+                    <span class="hud-label">ERRORES</span>
+                    <span id="errorsCountText" class="stat-value">0</span>
+                </div>
+                <div class="stat-box streak-box">
+                    <span class="hud-label">COMBO</span>
+                    <span id="streakText" class="stat-value">x3</span>
+                </div>
+                <button id="endgameButton" type="button" class="btn-endgame">
+                    <span>Finalizar</span>
+                </button>
+            </div>
         </section>
         <section id="tableBoard">
             <!-- El bucle se generará dinámicamente aquí más adelante -->
-             <div class="tableCard"></div>
+            <div class="tableCard"></div>
         </section>
     </main>
     <!--MAIN-->
 
     <!--FOOTER-->
     <div id="gencomp-footer"></div>
-    <!--FOOTER-->   
+    <!--FOOTER-->
     <script src="../js/navigation.js"></script>
     <script src="../js/storage.js"></script>
     <script src="../js/game.js"></script>
@@ -41,4 +73,5 @@
     <script src="../js/dedicated/soundController.js"></script>
     <script src="../js/dedicated/gameController.js"></script>
 </body>
+
 </html>
