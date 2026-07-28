@@ -37,7 +37,8 @@ function getInitialStorageStructure() {
             id: i + 1,
             title: formattedTitle,
             description: 'Mazo temático basado en ' + folderName,
-            cards: generateDeckCards(folderName)
+            cards: generateDeckCards(folderName),
+            isDefault: true
         });
     }
 
