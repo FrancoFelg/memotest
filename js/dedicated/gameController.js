@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function () {
             activeGame.isVictory = isVictory;
             activeGame.finalDatetime = new Date();
 
-            if (isProgressiveMode && isVictory) {
+            if (isProgressiveMode && isVictory && difficultySelected < 3) {
                 saveGameResult(activeGame);
                 nextDifficulty = difficultySelected;
                 if (difficultySelected != hardDifficulty) nextDifficulty = difficultySelected + 1;
