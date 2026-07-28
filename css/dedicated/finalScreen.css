@@ -1,0 +1,160 @@
+/* CONTENEDOR PRINCIPAL DE RESULTADOS */
+.results-container {
+    width: 100%;
+    max-width: 580px;
+    margin: auto;
+    padding: 32px 28px;
+    background: #1e293b;
+    border-radius: 16px;
+    border: 1px solid #334155;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    box-sizing: border-box;
+    color: #f8fafc;
+}
+
+/* TÍTULO Y SUBTÍTULO */
+.results-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 0 4px 0;
+    color: #f5c400; /* Dorado / Amarillo de la app */
+    letter-spacing: 0.5px;
+}
+
+.results-subtitle {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin: 0 0 24px 0;
+}
+
+/* GRID DE CARDS EN 2 COLUMNAS (3 en pantallas anchas) */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+/* CARD DE ESTADÍSTICA BASE */
+.stat-card {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-label {
+    font-size: 0.725rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #94a3b8;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #f8fafc;
+}
+
+.stat-value small {
+    font-size: 0.9rem;
+    margin-left: 2px;
+    color: #94a3b8;
+}
+
+/* VARIACIONES DE CARDS SEGÚN MÉTRICA */
+.stat-card.highlight {
+    border-color: rgba(245, 196, 0, 0.4);
+    background: rgba(245, 196, 0, 0.05);
+}
+.stat-card.highlight .stat-value {
+    color: #f5c400;
+}
+
+.stat-card.success .stat-value {
+    color: #4ade80; /* Verde mate */
+}
+
+.stat-card.danger .stat-value {
+    color: #f87171; /* Rojo mate */
+}
+
+.stat-card.streak .stat-value {
+    color: #38bdf8; /* Azul celeste */
+}
+
+/* SECCIÓN DE BOTONES */
+.results-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* BOTONES BASE */
+.btn {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* BOTÓN PRINCIPAL (REINICIAR) */
+.btn-primary {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+/* BOTÓN SECUNDARIO (CONFIGURACIÓN) */
+.btn-secondary {
+    background: #334155;
+    color: #f8fafc;
+}
+
+.btn-secondary:hover {
+    background: #475569;
+    transform: translateY(-1px);
+}
+
+/* BOTÓN DELINEADO (VOLVER) */
+.btn-outline {
+    background: transparent;
+    color: #94a3b8;
+    border: 1px solid #334155;
+}
+
+.btn-outline:hover {
+    background: #0f172a;
+    color: #f8fafc;
+}
+
+/* ADAPTACIÓN MÓVIL */
+@media (max-width: 480px) {
+    .results-container {
+        padding: 20px 16px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}

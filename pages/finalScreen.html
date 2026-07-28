@@ -1,33 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/game.css">
+    <link rel="stylesheet" href="../css/dedicated/finalScreen.css">
 </head>
+
 <body>
     <!--HEADER-->
     <div id="gencomp-header"></div>
     <!--HEADER-->
 
     <!--MAIN-->
-   <main class="main-body">
-    <h2 id="gameResultTitle"></h2>
-        <p>Estadísticas finales:</p>
-        
-        <ul>
-            <li><strong>Tiempo:</strong> <span id="statTime">0</span> segundos</li>
-            <li><strong>Puntaje final:</strong> <span id="statScore">0</span> puntos</li>
-            <li><strong>Número de reintento:</strong> <span id="statAttempt">1</span></li>
-            <li><strong>Cantidad de aciertos:</strong> <span id="statMatches">0</span></li>
-            <li><strong>Cantidad de fallos:</strong> <span id="statFailures">0</span></li>
-        </ul>
+    <main class="main-body">
+        <section class="results-container">
+            <!-- Título principal (Victoria / Derrota) -->
+            <h2 id="gameResultTitle" class="results-title">¡Victoria!</h2>
+            <p class="results-subtitle">Estadísticas finales de la partida</p>
 
-        <button type="button" id="btnRestart">Reiniciar partida</button>
-        <button type="button" id="btnConfig">Cambiar configuración</button>
-        <button type="button" id="btnMainMenu">Volver al menú principal</button>
+            <!-- GRID DE CARDS DE ESTADÍSTICAS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Tiempo</span>
+                    <div class="stat-value"><span id="statTime">0</span><small>s</small></div>
+                </div>
+
+                <div class="stat-card highlight">
+                    <span class="stat-label">Puntaje Final</span>
+                    <div class="stat-value" id="statScore">0</div>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-label">Intento</span>
+                    <div class="stat-value" id="statAttempt">1</div>
+                </div>
+
+                <div class="stat-card success">
+                    <span class="stat-label">Aciertos</span>
+                    <div class="stat-value" id="statMatches">0</div>
+                </div>
+
+                <div class="stat-card danger">
+                    <span class="stat-label">Fallos</span>
+                    <div class="stat-value" id="statFailures">0</div>
+                </div>
+
+                <!-- NUEVO: Cantidad de rachas/combos -->
+                <div class="stat-card streak">
+                    <span class="stat-label">Racha Máxima</span>
+                    <div class="stat-value"><span id="statStreak">0</span><small>x</small></div>
+                </div>
+            </div>
+
+            <!-- ACCIONES / BOTONES -->
+            <div class="results-actions">
+                <button type="button" id="btnRestart" class="btn btn-primary">Reiniciar partida</button>
+                <button type="button" id="btnConfig" class="btn btn-secondary">Cambiar configuración</button>
+                <button type="button" id="btnMainMenu" class="btn btn-outline">Volver al menú</button>
+            </div>
+        </section>
     </main>
     <!--MAIN-->
 
@@ -43,4 +77,5 @@
     <script src="../js/dedicated/soundController.js"></script>
     <script src="../js/dedicated/finalScreenController.js"></script>
 </body>
+
 </html>
