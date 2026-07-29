@@ -11,7 +11,6 @@ var musicaGame = new Audio('../assets/sounds/musicaPartida.mp3');
 var musicaActual = null;
 var volumenGeneral = 0.5;
 
-// Consulta directa al Storage
 function estaSilenciado() {
     if (typeof isSoundsEnabled === 'function') {
         return !isSoundsEnabled();
@@ -76,10 +75,10 @@ function alternarSilencio() {
     if (!musicaActual) return;
 
     if (estaSilenciado()) {
-        // Pausamos la música sin poner el currentTime en 0
+
         musicaActual.pause();
     } else {
-        // Reanudamos exactamente donde quedó
+
         musicaActual.play().catch(function (error) {
             console.warn("Error reanudando música:", error);
         });
