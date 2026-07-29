@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        if (typeof SoundController !== "undefined") SoundController.play("flip");
+        playFlipSound();
 
         activeGame.clicks += 1;
         clickedCardSlot.classList.add("revealed");
@@ -173,10 +173,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 saveCurrentGame(activeGame);
 
                 setTimeout(function () {
-                    if (typeof SoundController !== "undefined") SoundController.play("hide");
 
-                    cardsFlipped[0].element.classList.remove("revealed");
-                    cardsFlipped[1].element.classList.remove("revealed");
+                    playHideSound();
+
+                    cardsFlipped[0].element.classList.remove('revealed');
+                    cardsFlipped[1].element.classList.remove('revealed');
 
                     cardsFlipped = [];
                     lockBoard = false;
@@ -186,6 +187,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function generateAndStartGame() {
+
+        if (typeof playGameMusic === 'function') {
+        playGameMusic();
+        }
+
         var tableBoard = document.getElementById("tableBoard");
         if (scoreElement) scoreElement.innerText = (activeGame.score || 0).toFixed(2);
 
@@ -298,6 +304,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (allMatched || noTimeRemaining) {
             var isVictory = allMatched;
 
+            if (typeof stopMusic === 'function') {
+            stopMusic();
+            }
+
             if (gameTimerInterval) {
                 clearInterval(gameTimerInterval);
             }
@@ -404,9 +414,7 @@ document.addEventListener("DOMContentLoaded", function () {
         overlay.classList.remove("hidden");
 
         // Reproducir un sonido si tienes SoundController configurado
-        if (typeof SoundController !== "undefined") {
-            SoundController.play("victory"); // O el sonido que utilices
-        }
+        playVictorySound();
 
         // Ocultar modal después de 3.5 segundos y ejecutar la preparación del juego
         setTimeout(function () {
@@ -416,6 +424,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function endGame() {
+
+        if (typeof stopMusic === 'function') {
+        stopMusic();
+    }
+    
         activeGame.finalDatetime = new Date();
         saveGameResult(activeGame);
         localStorage.setItem("last_finished_game", JSON.stringify(activeGame));
