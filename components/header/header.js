@@ -14,6 +14,8 @@ var isInsidePagesFolder = window.location.pathname.indexOf("/pages/") !== -1;
 var pathPrefix = isInsidePagesFolder ? "../" : "./";
 var ICON_ENABLED = pathPrefix + "assets/images/icons/sound-enabled.png";
 var ICON_DISABLED = pathPrefix + "assets/images/icons/sound-disabled.png";
+var ICON_ENABLED_WHITE = pathPrefix + "assets/images/icons/sound-enabled-white.png";
+var ICON_DISABLED_WHITE = pathPrefix + "assets/images/icons/sound-disabled-white.png";
 
 if (btnLogout) {
     btnLogout.addEventListener('click', function () {
@@ -38,6 +40,7 @@ if (btnTheme) {
 
         applyTheme();
         updateThemeButton();
+        updateSoundButtonUI();
     });
 }
 
@@ -95,10 +98,25 @@ function updateThemeButton() {
 }
 
 function updateSoundButtonUI() {
+
     var enabled = isSoundsEnabled();
-    var iconSrc = enabled ? ICON_ENABLED : ICON_DISABLED;
-    var altText = enabled ? "Sonido activado" : "Sonido desactivado";
-    btnSound.innerHTML = '<img src="' + iconSrc + '" alt="' + altText + '" class="sound-icon" />';
+    var dark = getSystemTheme() === "dark";
+
+    var iconSrc;
+
+    if (enabled) {
+        iconSrc = dark ? ICON_ENABLED_WHITE : ICON_ENABLED;
+    } else {
+        iconSrc = dark ? ICON_DISABLED_WHITE : ICON_DISABLED;
+    }
+
+    var altText = enabled
+        ? "Sonido activado"
+        : "Sonido desactivado";
+
+    btnSound.innerHTML =
+        '<img src="' + iconSrc + '" alt="' + altText + '" class="sound-icon" />';
+
     btnSound.setAttribute("aria-label", altText);
 }
 

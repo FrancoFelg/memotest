@@ -254,3 +254,102 @@
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
+/* =========================
+   CONFIGURACIONES - DARK THEME
+========================= */
+
+body.dark-theme .deck-card {
+
+    background-color: #2D3448;
+    border-color: #3A445C;
+}
+
+body.dark-theme .deck-header-toggle {
+
+    background-color: #374151;
+}
+
+body.dark-theme .deck-header-toggle:hover {
+
+    background-color: #44506A;
+}
+
+body.dark-theme .deck-title {
+
+    color: #FFFFFF;
+}
+
+body.dark-theme .deck-description {
+
+    color: #D1D5DB;
+}
+
+body.dark-theme .deck-cards-grid {
+
+    background-color: #1F2535;
+    border-top-color: #3A445C;
+}
+
+body.dark-theme .card-preview {
+
+    background-color: #2D3448;
+    border-color: #3A445C;
+}
+
+body.dark-theme .modal-content {
+
+    background-color: #2D3448;
+    color: white;
+}
+
+body.dark-theme .modal-header {
+
+    border-bottom-color: #3A445C;
+}
+
+body.dark-theme .form-group label {
+
+    color: white;
+}
+
+body.dark-theme .form-group input[type="text"],
+body.dark-theme .form-group textarea {
+
+    background-color: #374151;
+    color: white;
+    border-color: #4B5563;
+}
+
+body.dark-theme .form-group input[type="text"]::placeholder,
+body.dark-theme .form-group textarea::placeholder {
+
+    color: #C5C5C5;
+}
+
+body.dark-theme .inputs-grid {
+
+    background-color: #1F2535;
+    border-color: #3A445C;
+}
+
+body.dark-theme .file-input-item {
+
+    background-color: #2D3448;
+    border-color: #3A445C;
+}
+
+body.dark-theme .file-input-item label {
+
+    color: white;
+}
+
+body.dark-theme .file-input-item input[type="file"] {
+
+    color: #E5E7EB;
+}
+
+body.dark-theme .btn-close {
+
+    color: white;
+}

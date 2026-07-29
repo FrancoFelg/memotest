@@ -28,5 +28,10 @@ if (btnRanking) {
         });
     }
     
+setTimeout(function () {
 
+    document.getElementById("navHome")?.remove();
+    document.getElementById("btnLogout")?.remove();
+
+}, 100);
 });
