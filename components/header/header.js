@@ -106,7 +106,6 @@ function toggleSound() {
     var currentState = isSoundsEnabled();
     setSoundsEnabled(!currentState);
     
-    // 🛑 LLAMAR A LA FUNCIÓN DE SOUNDCONTROLLER PARA ACTUALIZAR LA MÚSICA EN TIEMPO REAL
     if (typeof alternarSilencio === 'function') {
         alternarSilencio();
     }

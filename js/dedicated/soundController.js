@@ -53,7 +53,6 @@ function iniciarMusica(pistaAudio) {
         musicaActual.loop = true;
         musicaActual.volume = volumenGeneral;
 
-        // Si NO está silenciado, la reproducimos
         if (!estaSilenciado()) {
             var promise = musicaActual.play();
             if (promise !== undefined) {
@@ -73,8 +72,6 @@ function stopMusic() {
     }
 }
 
-// 🛑 ESTE ES EL CAMBIO CLAVE PARA LA MÚSICA DE FONDO:
-// Pausa la música reteniendo la posición exacta (currentTime), o la reanuda si se activa.
 function alternarSilencio() {
     if (!musicaActual) return;
 
