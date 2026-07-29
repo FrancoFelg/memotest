@@ -1,6 +1,11 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', function () {
+
+    if (typeof playMenuMusic === 'function') {
+    playMenuMusic();
+    }
+    
     var btnPlay = document.getElementById('btnPlay');
     var btnRanking = document.getElementById('btnRanking');
     var btnConfiguration = document.getElementById('btnConfiguration');

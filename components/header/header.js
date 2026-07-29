@@ -123,6 +123,11 @@ function updateSoundButtonUI() {
 function toggleSound() {
     var currentState = isSoundsEnabled();
     setSoundsEnabled(!currentState);
+    
+    if (typeof alternarSilencio === 'function') {
+        alternarSilencio();
+    }
+
     updateSoundButtonUI();
 }
 

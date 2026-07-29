@@ -60,6 +60,16 @@ document.addEventListener("DOMContentLoaded", function() {
     var btnConfig = document.getElementById("btnConfig");
     var btnMainMenu = document.getElementById("btnMainMenu");
 
+    // Asegurarnos de que no quede música de fondo del juego sonando
+    if (typeof stopMusic === 'function') {
+        stopMusic();
+    }
+    
+    // Si fue victoria, reproducimos el sonido de victoria
+    if (lastGame.isVictory && typeof playVictorySound === 'function') {
+        playVictorySound();
+    }
+
     // Reiniciar partida (Mismo mazo, misma dificultad, limpia el tablero)
     if (btnRestart) {
         btnRestart.addEventListener("click", function() {
